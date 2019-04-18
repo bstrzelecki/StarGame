@@ -11,6 +11,14 @@ namespace StarGame
     class Input
     {
         public static Vector2 cameraOffset;
+        public static float GetRads(float degress)
+        {
+            return degress * (float)Math.PI / 180;
+        }
+        public static float GetDegree(float rad)
+        {
+            return rad * 180 / (float)Math.PI;
+        }
         public static bool IsKeyDown(Keys key)
         {
             KeyboardState state = Keyboard.GetState();

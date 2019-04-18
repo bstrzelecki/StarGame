@@ -14,7 +14,7 @@ namespace StarGame
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         protected static List<IDrawable> renderers = new List<IDrawable>();
@@ -54,6 +54,9 @@ namespace StarGame
             Registry.RegisterRenderers();
             Registry.RegisterUpdates();
             IsMouseVisible = true;
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
@@ -81,6 +84,8 @@ namespace StarGame
             
 
             Registry.LoadContent(this);
+            Registry.Init();
+
             // TODO: use this.Content to load your game content here
         }
         public void Load(string id)
@@ -104,6 +109,7 @@ namespace StarGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
