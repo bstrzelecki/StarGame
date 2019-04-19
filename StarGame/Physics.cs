@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Physics
+    class Physics : ICloneable
     {
         public Vector2 velocity;
         public Vector2 acceleration;
@@ -42,6 +42,14 @@ namespace StarGame
         private void Time_OnTick()
         {
             ApplyAcceleration();
+        }
+
+        public object Clone()
+        {
+            Physics ph = new Physics();
+            ph.velocity = velocity;
+            //ph.acceleration = acceleration;
+            return ph;
         }
     }
 }

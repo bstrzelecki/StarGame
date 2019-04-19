@@ -10,11 +10,12 @@ namespace StarGame
 {
     class MainScene : IDrawable, IUpdateable
     {
-        public Player player;
+        public static Player player;
         public static StarSystem sun;
         public List<Tile> background = new List<Tile>();
         public Texture2D tile;
         public Radar radar;
+        public SimulationProxy proxy;
         public void Draw(SpriteBatch sprite)
         {
             //Texture2D texture = Game1.textures["tile"];
@@ -35,7 +36,6 @@ namespace StarGame
 
         public void Update()
         {
-            player.Update();
             Input.cameraOffset = -player.position + player.screenPosition;
             Vector2 playerInBackground = player.position/tile.Width;
             int backgroundWidth = Game1.graphics.GraphicsDevice.Viewport.Width / tile.Width;
@@ -64,6 +64,10 @@ namespace StarGame
             {
                 radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
             }
+            foreach(Vector2 pos in proxy.blips)
+            {
+                radar.AddBlip(player.position, pos);
+            }
         }
 
         internal void Init()
@@ -74,7 +78,7 @@ namespace StarGame
             sun.position = new Vector2(6000, 6000);
             tile = Game1.textures["tile"];
             radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
-            
+            proxy = new SimulationProxy();
         }
     }
 }

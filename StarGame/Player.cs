@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace StarGame
 {
-    class Player : IDrawable, IUpdateable
+    class Player : IDrawable, ICloneable
     {
         public Sprite sprite;
         public Vector2 screenPosition;
@@ -27,7 +27,7 @@ namespace StarGame
             Time.OnTick += Time_OnTick;
         }
 
-        private void Time_OnTick()
+        public void Time_OnTick()
         {
             position += physics.velocity;
             Rotation += physics.GetDeltaRotation();
@@ -67,9 +67,13 @@ namespace StarGame
             sprite.Draw(this.sprite, screenPosition, null, Color.White, _rotation, new Vector2(collider.Width / 2, collider.Height / 2), Vector2.One,SpriteEffects.None,0);
         }
 
-        public void Update()
-        {
 
+        public object Clone()
+        {
+            Player p = new Player();
+            p.physics = (Physics)physics.Clone();
+            p.position = position;
+            return p;
         }
     }
 }
