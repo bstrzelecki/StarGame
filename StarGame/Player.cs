@@ -18,6 +18,7 @@ namespace StarGame
         private float _rotation;
         public Rectangle collider;
         public Physics physics = new Physics();
+        public float mass = 10;
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
@@ -46,8 +47,21 @@ namespace StarGame
             {
                 physics.deltaRotation += 1;
             }
+            ApplyGravity(MainScene.sun);
         }
+        public void ApplyGravity(StarSystem system)
+        {
 
+            float force = Physics.G * (mass * system.StarMass) / (float)Math.Pow(Vector2.Distance(position, system.position), 2);
+            physics.acceleration += force * (-position + system.position);
+
+            foreach(Planet planet in system.planets)
+            {
+                force = Physics.G * (mass * planet.Mass) / (float)Math.Pow(Vector2.Distance(position, Physics.GetForwardVector(planet.Period) * planet.distance + system.position), 2);
+                physics.acceleration += force * (-position + Physics.GetForwardVector(planet.Period) * planet.distance + system.position);
+            }
+
+        }
         public void Draw(SpriteBatch sprite)
         {
             sprite.Draw(this.sprite, screenPosition, null, Color.White, _rotation, new Vector2(collider.Width / 2, collider.Height / 2), Vector2.One,SpriteEffects.None,0);

@@ -12,6 +12,7 @@ namespace StarGame
         public Vector2 velocity;
         public Vector2 acceleration;
         public float deltaRotation;
+        public const float G = 1;
         public const float RotationLimit = 15;
         public void ApplyAcceleration()
         {
@@ -36,6 +37,7 @@ namespace StarGame
             float y = (float)Math.Sin((double)Input.GetRads(rotation));
             return new Vector2(x, y);
         }
+
 
         private void Time_OnTick()
         {

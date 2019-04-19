@@ -11,7 +11,7 @@ namespace StarGame
     class MainScene : IDrawable, IUpdateable
     {
         public Player player;
-        public StarSystem sun;
+        public static StarSystem sun;
         public List<Tile> background = new List<Tile>();
         public Texture2D tile;
         public void Draw(SpriteBatch sprite)
@@ -60,9 +60,9 @@ namespace StarGame
         internal void Init()
         {
             player = new Player();
-            sun = new StarSystem(new Sprite(Game1.textures["planet1"]), 10);
-            sun.AddPlanet(new Planet(new Sprite(Game1.textures["planet2"]), 10, 1000));
-            sun.position = new Vector2(600, 600);
+            sun = new StarSystem(new Sprite(Game1.textures["planet1"]), 100);
+            sun.AddPlanet(new Planet(new Sprite(Game1.textures["planet2"]), 50, 10000));
+            sun.position = new Vector2(6000, 6000);
             tile = Game1.textures["tile"];
         }
     }
