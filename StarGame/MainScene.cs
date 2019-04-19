@@ -14,6 +14,7 @@ namespace StarGame
         public static StarSystem sun;
         public List<Tile> background = new List<Tile>();
         public Texture2D tile;
+        public Radar radar;
         public void Draw(SpriteBatch sprite)
         {
             //Texture2D texture = Game1.textures["tile"];
@@ -29,6 +30,7 @@ namespace StarGame
             sun.Draw(sprite);
             sprite.DrawString(Game1.fonts["font"], player.position.ToString(), new Vector2(50, 50), Color.Red);
             sprite.DrawString(Game1.fonts["font"], Vector2.Distance(player.position, sun.position).ToString(), new Vector2(50, 100), Color.Red);
+            radar.Draw(sprite);
         }
 
         public void Update()
@@ -55,6 +57,13 @@ namespace StarGame
             {
                 background.Remove(t);
             }
+            radar.Clear();
+            radar.AddBlip(player.position,sun.position);
+
+            foreach(Planet planet in sun.planets)
+            {
+                radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
+            }
         }
 
         internal void Init()
@@ -64,6 +73,8 @@ namespace StarGame
             sun.AddPlanet(new Planet(new Sprite(Game1.textures["planet2"]), 50, 10000));
             sun.position = new Vector2(6000, 6000);
             tile = Game1.textures["tile"];
+            radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
+            
         }
     }
 }
