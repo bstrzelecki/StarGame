@@ -36,6 +36,7 @@ namespace StarGame
             float y = (float)Math.Sin((double)Input.GetRads(rotation));
             return new Vector2(x, y);
         }
+
         private void Time_OnTick()
         {
             ApplyAcceleration();

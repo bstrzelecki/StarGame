@@ -68,6 +68,9 @@ namespace StarGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+
+            Registry.LoadContent(this);
             try
             {
                 string[] files = Directory.GetFiles(Environment.CurrentDirectory + "\\Content");
@@ -75,15 +78,13 @@ namespace StarGame
                 {
                     string f = file.Remove(0, file.LastIndexOf('\\') + 1);
                     f = f.Remove(f.Length - 4, 4);
+                    if (textures.ContainsKey(f) || fonts.ContainsKey(f)) continue;
                     Load(f);
                 }
             }catch(Exception e)
             {
                 Debug.WriteLine(e.Data);
             }
-            
-
-            Registry.LoadContent(this);
             Registry.Init();
 
             // TODO: use this.Content to load your game content here
@@ -91,6 +92,10 @@ namespace StarGame
         public void Load(string id)
         {
             textures.Add(id, Content.Load<Texture2D>(id));
+        }
+        public void LoadFont(string id)
+        {
+            fonts.Add(id, Content.Load<SpriteFont>(id));
         }
 
         /// <summary>
@@ -125,7 +130,7 @@ namespace StarGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
             foreach (IDrawable draw in renderers)

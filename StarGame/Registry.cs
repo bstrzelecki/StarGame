@@ -12,7 +12,7 @@ namespace StarGame
         public static Time time = new Time();
         public static void LoadContent(Game1 game)
         {
-
+            game.LoadFont("font");
         }
         public static void RegisterUpdates()
         {
