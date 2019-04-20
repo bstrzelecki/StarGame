@@ -39,6 +39,16 @@ namespace StarGame
                     sprite.Draw(Game1.textures["blip"], position + blip * 9 + new Vector2(120,120), Color.White);
                 }
             }
+            foreach (Vector2 blip in MainScene.proxy.blips)
+            {
+                Vector2 b;
+                b = blip - MainScene.player.position;
+                b /= scale;
+                if (b.Length() < 11)
+                {
+                    sprite.Draw(Game1.textures["WhitePixel"],new Rectangle((position + b * 9 + new Vector2(123, 123)).ToPoint(),new Point(3,3)), Color.Blue);
+                }
+            }
         }
     }
 }

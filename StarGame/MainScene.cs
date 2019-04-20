@@ -15,7 +15,7 @@ namespace StarGame
         public List<Tile> background = new List<Tile>();
         public Texture2D tile;
         public Radar radar;
-        public SimulationProxy proxy;
+        public static SimulationProxy proxy;
         public void Draw(SpriteBatch sprite)
         {
             //Texture2D texture = Game1.textures["tile"];
@@ -64,10 +64,7 @@ namespace StarGame
             {
                 radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
             }
-            foreach(Vector2 pos in proxy.blips)
-            {
-                radar.AddBlip(player.position, pos);
-            }
+
         }
 
         internal void Init()

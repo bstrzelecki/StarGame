@@ -10,7 +10,7 @@ namespace StarGame
     class SimulationProxy
     {
         public Player blip;
-        public int simulationSpeed = 25;
+        public int simulationSpeed = 5;
         public int simulationSteps = 25;
         public Vector2[] blips;
         public int count = 0;
