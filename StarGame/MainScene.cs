@@ -16,6 +16,7 @@ namespace StarGame
         public Texture2D tile;
         public Radar radar;
         public static SimulationProxy proxy;
+        public SpeedOMeter meter;
         public void Draw(SpriteBatch sprite)
         {
             //Texture2D texture = Game1.textures["tile"];
@@ -29,9 +30,10 @@ namespace StarGame
             }
             player.Draw(sprite);
             sun.Draw(sprite);
-            sprite.DrawString(Game1.fonts["font"], player.position.ToString(), new Vector2(50, 50), Color.Red);
-            sprite.DrawString(Game1.fonts["font"], Vector2.Distance(player.position, sun.position).ToString(), new Vector2(50, 100), Color.Red);
+            //sprite.DrawString(Game1.fonts["font"], player.position.ToString(), new Vector2(50, 50), Color.Red);
+            //sprite.DrawString(Game1.fonts["font"], Vector2.Distance(player.position, sun.position).ToString(), new Vector2(50, 100), Color.Red);
             radar.Draw(sprite);
+            meter.Draw(sprite);
         }
 
         public void Update()
@@ -63,6 +65,10 @@ namespace StarGame
             foreach(Planet planet in sun.planets)
             {
                 radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
+                foreach(Planet moon in planet.moons)
+                {
+                    radar.AddBlip(player.position, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
+                }
             }
 
         }
@@ -72,10 +78,17 @@ namespace StarGame
             player = new Player();
             sun = new StarSystem(new Sprite(Game1.textures["planet1"]), 100);
             sun.AddPlanet(new Planet(new Sprite(Game1.textures["planet2"]), 50, 10000));
+            Planet planet = new Planet(new Sprite(Game1.textures["planet12"]), 60, 24000);
+            Planet moon = new Planet(new Sprite(Game1.textures["planet6"]), 20, 6000);
+            moon.cycleTime = 1;
+            planet.moons.Add(new Planet(new Sprite(Game1.textures["planet6"]), 20, 6000));
+            planet.cycleTime = 0.006f;
+            sun.AddPlanet(planet);
             sun.position = new Vector2(6000, 6000);
             tile = Game1.textures["tile"];
             radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
             proxy = new SimulationProxy();
+            meter = new SpeedOMeter();
         }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Radar.cs" />
     <Compile Include="Registry.cs" />
     <Compile Include="SimulationProxy.cs" />
+    <Compile Include="SpeedOMeter.cs" />
     <Compile Include="Sprite.cs" />
     <Compile Include="StarSystem.cs" />
     <Compile Include="Tile.cs" />

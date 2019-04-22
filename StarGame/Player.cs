@@ -19,6 +19,7 @@ namespace StarGame
         public Rectangle collider;
         public Physics physics = new Physics();
         public float mass = 10;
+        public float speed = 1.2f;
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
@@ -33,19 +34,19 @@ namespace StarGame
             Rotation += physics.GetDeltaRotation();
             if (Input.IsKeyDown(Keys.W))
             {
-                physics.acceleration += Physics.GetForwardVector(Rotation);
+                physics.acceleration += Physics.GetForwardVector(Rotation) * speed;
             }
             if (Input.IsKeyDown(Keys.S))
             {
-                physics.acceleration -= Physics.GetForwardVector(Rotation) * 0.2f;
+                physics.acceleration -= Physics.GetForwardVector(Rotation) * 0.2f * speed;
             }
             if (Input.IsKeyDown(Keys.A))
             {
-                physics.deltaRotation -= 1;
+                physics.deltaRotation -= speed * 0.1f;
             }
             if (Input.IsKeyDown(Keys.D))
             {
-                physics.deltaRotation += 1;
+                physics.deltaRotation += speed * 0.1f;
             }
             ApplyGravity(MainScene.sun);
         }

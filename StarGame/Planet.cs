@@ -11,6 +11,7 @@ namespace StarGame
         public List<Planet> moons = new List<Planet>();
         public float Mass { get; protected set; }
         public float distance;
+        public float cycleTime = 0.01f;
         public float Period { get { return _period; } set
             {
                 _period = value;
@@ -28,6 +29,8 @@ namespace StarGame
             Mass = mass;
             this.sprite = sprite;
             this.distance = distance;
+            Random rng = new Random();
+            Period = (rng.Next(360) * Mass * distance)%360;
         }
     }
 }
