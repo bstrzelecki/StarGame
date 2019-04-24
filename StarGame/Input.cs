@@ -29,6 +29,11 @@ namespace StarGame
             KeyboardState state = Keyboard.GetState();
             return state.IsKeyUp(key);
         }
+        /// <summary>
+        /// Returns if mouse button is pressed
+        /// </summary>
+        /// <param name="btn">Number of button: 0 - Left, 1 - Middle, 2 - Right </param>
+        /// <returns></returns>
         public static bool IsMouseKeyDown(int btn)
         {
             MouseState state = Mouse.GetState();

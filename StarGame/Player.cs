@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace StarGame
 {
-    class Player : IDrawable, ICloneable
+    class Player : IDrawable, ICloneable, IUpdateable
     {
         public Sprite sprite;
         public Vector2 screenPosition;
@@ -20,12 +20,22 @@ namespace StarGame
         public Physics physics = new Physics();
         public float mass = 10;
         public float speed = 1.2f;
+
+        public Weapon rmb;
+        public Weapon lmb;
+        public Weapon mmb;
+
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
             collider = sprite.Texture.Bounds;
             screenPosition = new Vector2(Game1.graphics.PreferredBackBufferWidth / 2, Game1.graphics.PreferredBackBufferHeight / 2);
             Time.OnTick += Time_OnTick;
+
+            Projectile proj = new Projectile(new Sprite("plasma"));
+            Weapon wep = new Weapon(proj);
+
+            rmb = wep;
         }
 
         public void Time_OnTick()
@@ -65,6 +75,8 @@ namespace StarGame
         }
         public void Draw(SpriteBatch sprite)
         {
+            if (rmb != null)
+                rmb.DrawProjectile(sprite);
             sprite.Draw(this.sprite, screenPosition, null, Color.White, _rotation, new Vector2(collider.Width / 2, collider.Height / 2), Vector2.One,SpriteEffects.None,0);
         }
 
@@ -75,6 +87,14 @@ namespace StarGame
             p.physics = (Physics)physics.Clone();
             p.position = position;
             return p;
+        }
+
+        public void Update()
+        {
+            if (rmb != null && Input.IsMouseKeyDown(2))
+            {
+                rmb.SpawnProjectile();
+            }
         }
     }
 }

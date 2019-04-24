@@ -70,7 +70,7 @@ namespace StarGame
                     radar.AddBlip(player.position, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
                 }
             }
-
+            player.Update();
         }
 
         internal void Init()

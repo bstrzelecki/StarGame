@@ -18,7 +18,7 @@ namespace StarGame
         {
 
         }
-        private int ToBar(int value)
+        public static int ToBar(int value)
         {
             return value / BarScale;
         }
