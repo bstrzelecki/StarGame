@@ -42,21 +42,28 @@ namespace StarGame
         {
             position += physics.velocity;
             Rotation += physics.GetDeltaRotation();
-            if (Input.IsKeyDown(Keys.W))
+            if (MainScene.barArray.GetResource("fuel") > 0)
             {
-                physics.acceleration += Physics.GetForwardVector(Rotation) * speed;
-            }
-            if (Input.IsKeyDown(Keys.S))
-            {
-                physics.acceleration -= Physics.GetForwardVector(Rotation) * 0.2f * speed;
-            }
-            if (Input.IsKeyDown(Keys.A))
-            {
-                physics.deltaRotation -= speed * 0.1f;
-            }
-            if (Input.IsKeyDown(Keys.D))
-            {
-                physics.deltaRotation += speed * 0.1f;
+                if (Input.IsKeyDown(Keys.W))
+                {
+                    physics.acceleration += Physics.GetForwardVector(Rotation) * speed;
+                    MainScene.barArray.SubtractResource("fuel", 0.001f);
+                }
+                if (Input.IsKeyDown(Keys.S))
+                {
+                    physics.acceleration -= Physics.GetForwardVector(Rotation) * 0.2f * speed;
+                    MainScene.barArray.SubtractResource("fuel", 0.001f);
+                }
+                if (Input.IsKeyDown(Keys.A))
+                {
+                    physics.deltaRotation -= speed * 0.1f;
+                    MainScene.barArray.SubtractResource("fuel", 0.0005f);
+                }
+                if (Input.IsKeyDown(Keys.D))
+                {
+                    physics.deltaRotation += speed * 0.1f;
+                    MainScene.barArray.SubtractResource("fuel", 0.0005f);
+                }
             }
             ApplyGravity(MainScene.sun);
         }

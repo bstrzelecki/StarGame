@@ -17,23 +17,18 @@ namespace StarGame
         public Radar radar;
         public static SimulationProxy proxy;
         public SpeedOMeter meter;
+        public static BarArray barArray;
         public void Draw(SpriteBatch sprite)
         {
-            //Texture2D texture = Game1.textures["tile"];
-            //for (int x = 0; x < Game1.graphics.GraphicsDevice.Viewport.Width/texture.Width; x++)
-            //{
-
-            //}
             foreach(Tile tile in background)
             {
                 sprite.Draw(tile.sprite, tile.position * this.tile.Width + Input.cameraOffset, Color.White);
             }
             player.Draw(sprite);
             sun.Draw(sprite);
-            //sprite.DrawString(Game1.fonts["font"], player.position.ToString(), new Vector2(50, 50), Color.Red);
-            //sprite.DrawString(Game1.fonts["font"], Vector2.Distance(player.position, sun.position).ToString(), new Vector2(50, 100), Color.Red);
             radar.Draw(sprite);
             meter.Draw(sprite);
+            barArray.Draw(sprite);
         }
 
         public void Update()
@@ -89,6 +84,7 @@ namespace StarGame
             radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
             proxy = new SimulationProxy();
             meter = new SpeedOMeter();
+            barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
         }
     }
 }
