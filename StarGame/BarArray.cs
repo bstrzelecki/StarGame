@@ -18,7 +18,17 @@ namespace StarGame
             {
                 Resources.Add(r);
             }
+            Debbuger.OnCmd += Debbuger_OnCmd;
         }
+
+        private void Debbuger_OnCmd(string[] cmd)
+        {
+            if (cmd[0] == "resource")
+            {
+                SetResource(cmd[1], int.Parse(cmd[2]));
+            }
+        }
+
         public Vector2 position = new Vector2(4,125);
         public void Draw(SpriteBatch sprite)
         {

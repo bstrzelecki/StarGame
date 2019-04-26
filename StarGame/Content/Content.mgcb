@@ -56,6 +56,18 @@
 /processorParam:TextureFormat=Color
 /build:meter.png
 
+#begin planet0.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planet0.png
+
 #begin planet1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -164,7 +176,7 @@
 /processorParam:TextureFormat=Color
 /build:planet17.png
 
-#begin planet18_0.png
+#begin planet18.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -174,7 +186,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:planet18_0.png
+/build:planet18.png
 
 #begin planet19.png
 /importer:TextureImporter
@@ -271,6 +283,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planet7.png
+
+#begin planet8.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planet8.png
+
+#begin planet9.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planet9.png
 
 #begin plasma.png
 /importer:TextureImporter

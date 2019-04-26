@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BarArray.cs" />
+    <Compile Include="Debbuger.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Input.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Radar.cs" />
+    <Compile Include="RandomSpaceGenerator.cs" />
     <Compile Include="Registry.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="SimulationProxy.cs" />

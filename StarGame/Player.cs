@@ -26,6 +26,8 @@ namespace StarGame
         public Weapon lmb;
         public Weapon mmb;
 
+
+        bool useGravity = true;
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
@@ -37,6 +39,23 @@ namespace StarGame
             Weapon wep = new Weapon(proj);
 
             rmb = wep;
+
+            Debbuger.OnCmd += Debbuger_OnCmd;
+        }
+
+        private void Debbuger_OnCmd(string[] cmd)
+        {
+            if(cmd[0] == "player")
+            {
+                if(cmd[1] == "usegravity")
+                {
+                    useGravity = bool.Parse(cmd[2]);
+                }
+                if (cmd[1] == "position")
+                {
+                    position = new Vector2(int.Parse(cmd[2]),int.Parse(cmd[3]));
+                }
+            }
         }
 
         public void Time_OnTick()
@@ -44,7 +63,7 @@ namespace StarGame
             position += physics.velocity;
             Rotation += physics.GetDeltaRotation();
             HandleUserInput();
-            ApplyGravity(MainScene.sun);
+            if(useGravity)ApplyGravity(MainScene.sun);
             RenewPower();
         }
 
@@ -78,7 +97,7 @@ namespace StarGame
         private void RenewPower()
         {
             float resupply = 250 / Vector2.Distance(MainScene.sun.position, position);
-            Debug.WriteLine(resupply);
+            //Debug.WriteLine(resupply);
             if (resupply > 0.0001f)
             {
                 if (MainScene.barArray.GetResource("power") + resupply <= 100)
