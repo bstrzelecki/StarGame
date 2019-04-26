@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,13 @@ namespace StarGame
         {
             position += physics.velocity;
             Rotation += physics.GetDeltaRotation();
+            HandleUserInput();
+            ApplyGravity(MainScene.sun);
+            RenewPower();
+        }
+
+        private void HandleUserInput()
+        {
             if (MainScene.barArray.GetResource("fuel") > 0)
             {
                 if (Input.IsKeyDown(Keys.W))
@@ -65,8 +73,25 @@ namespace StarGame
                     MainScene.barArray.SubtractResource("fuel", 0.0005f);
                 }
             }
-            ApplyGravity(MainScene.sun);
         }
+
+        private void RenewPower()
+        {
+            float resupply = 250 / Vector2.Distance(MainScene.sun.position, position);
+            Debug.WriteLine(resupply);
+            if (resupply > 0.0001f)
+            {
+                if (MainScene.barArray.GetResource("power") + resupply <= 100)
+                {
+                    MainScene.barArray.AddResource("power", resupply);
+                }
+                else if (MainScene.barArray.GetResource("power") != 100)
+                {
+                    MainScene.barArray.SetResource("power", 100);
+                }
+            }
+        }
+
         public void ApplyGravity(StarSystem system)
         {
 

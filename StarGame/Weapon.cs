@@ -28,7 +28,7 @@ namespace StarGame
         }
         public virtual void SpawnProjectile()
         {
-            if (Cooldown >= 1)
+            if (Cooldown >= 1 && MainScene.barArray.GetResource("power") > 0)
             {
                 Projectile p = (Projectile)projectile.Clone();
                 p.Position = MainScene.player.position + Physics.GetForwardVector(MainScene.player.Rotation) * 30;
@@ -44,6 +44,7 @@ namespace StarGame
                 p.Rotation = Input.GetRads(MainScene.player.Rotation) + (float)Math.PI / 2;
                 Projectiles.Add(p);
                 Cooldown = 0;
+                MainScene.barArray.SubtractResource("power", 25);
             }
         }
         public virtual void DrawProjectile(SpriteBatch sprite)
