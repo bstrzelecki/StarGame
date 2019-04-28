@@ -16,6 +16,7 @@ namespace StarGame
         public Vector2 screenPosition;
         public Vector2 position;
         public float Rotation { get { return Input.GetDegree(_rotation); } set { _rotation = Input.GetRads(value); } }
+        public static float JumpDistance { get; set; } = 80;
         private float _rotation;
         public Rectangle collider;
         public Physics physics = new Physics();

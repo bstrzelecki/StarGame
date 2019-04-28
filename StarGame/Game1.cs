@@ -18,7 +18,7 @@ namespace StarGame
         SpriteBatch spriteBatch;
 
         protected static List<IDrawable> renderers = new List<IDrawable>();
-        protected static List<IUpdateable> updates = new List<IUpdateable>();
+        public static List<IUpdateable> updates = new List<IUpdateable>();
 
         public static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         public static Dictionary<string, SpriteFont> fonts = new Dictionary<string, SpriteFont>();

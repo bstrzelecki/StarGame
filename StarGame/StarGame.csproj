@@ -48,6 +48,7 @@
     <Compile Include="Input.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IUpdateable.cs" />
+    <Compile Include="JumpAssistant.cs" />
     <Compile Include="MainScene.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Planet.cs" />
@@ -62,9 +63,11 @@
     <Compile Include="SimulationProxy.cs" />
     <Compile Include="SpeedOMeter.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="StarMap.cs" />
     <Compile Include="StarSystem.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="Time.cs" />
+    <Compile Include="UIController.cs" />
     <Compile Include="Weapon.cs" />
   </ItemGroup>
   <ItemGroup>

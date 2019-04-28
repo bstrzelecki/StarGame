@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace StarGame
 {
@@ -20,6 +21,7 @@ namespace StarGame
         public static SimulationProxy proxy;
         public SpeedOMeter meter;
         public static BarArray barArray;
+        public UIController ui;
         public void Draw(SpriteBatch sprite)
         {
             foreach(Tile tile in background)
@@ -31,6 +33,7 @@ namespace StarGame
             radar.Draw(sprite);
             meter.Draw(sprite);
             barArray.Draw(sprite);
+            ui.Draw(sprite);
         }
 
         public void Update()
@@ -68,24 +71,35 @@ namespace StarGame
                 }
             }
             player.Update();
-            if (Input.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.C))
+            ui.Update();
+            if (Input.IsKeyDown(Keys.M))
+            {
+                ui.SetView(DisplayedUI.StarMap);
+            }
+            if (Input.IsKeyDown(Keys.N))
+            {
+                ui.SetView(DisplayedUI.None);
+            }
+            if (ui.UI != DisplayedUI.None)
+            {
+                Time.IsStopped = true;
+            }
+            else
+            {
+                Time.IsStopped = false;
+            }
+
+            if (Input.IsKeyDown(Keys.C))
             {
                 Debbuger.OpenConsole();
             }
             Debbuger.ExecuteCommands();
+
         }
 
         internal void Init()
         {
             player = new Player();
-            //sun = new StarSystem(new Sprite(Game1.textures["planet1"]), 100);
-            //sun.AddPlanet(new Planet(new Sprite(Game1.textures["planet2"]), 50, 10000));
-            //Planet planet = new Planet(new Sprite(Game1.textures["planet12"]), 60, 24000);
-            //Planet moon = new Planet(new Sprite(Game1.textures["planet6"]), 20, 6000);
-            //moon.cycleTime = 1;
-            //planet.moons.Add(new Planet(new Sprite(Game1.textures["planet6"]), 20, 6000));
-            //planet.cycleTime = 0.006f;
-            //sun.AddPlanet(planet);
             RandomSpaceGenerator gen = new RandomSpaceGenerator();
             sun = gen.Build();
             sun.position = new Vector2(6000, 6000);
@@ -94,6 +108,8 @@ namespace StarGame
             proxy = new SimulationProxy();
             meter = new SpeedOMeter();
             barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
+            ui = new UIController();
+            StarMap.GenerateStars(60);
         }
     }
 }

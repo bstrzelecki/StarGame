@@ -13,8 +13,10 @@ namespace StarGame
         public static event Action OnTick;
         private int tickCounter;
         private const int tickTime = 30;
+        public static bool IsStopped { get; set; }
         public void Update()
         {
+            if (IsStopped) return;
             DeltaTime = (int)DateTime.Now.Millisecond - start;
             DeltaTime = DeltaTime > 0 ? DeltaTime : 0;
             start = DateTime.Now.Millisecond;
