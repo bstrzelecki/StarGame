@@ -21,7 +21,7 @@ namespace StarGame
         public static SimulationProxy proxy;
         public SpeedOMeter meter;
         public static BarArray barArray;
-        public UIController ui;
+        public static UIController ui;
         public void Draw(SpriteBatch sprite)
         {
             foreach(Tile tile in background)
@@ -109,7 +109,7 @@ namespace StarGame
             meter = new SpeedOMeter();
             barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
             ui = new UIController();
-            StarMap.GenerateStars(60);
+            StarMap.GenerateStars(150);
         }
     }
 }

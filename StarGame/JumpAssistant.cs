@@ -15,22 +15,20 @@ namespace StarGame
             if (Vector2.Distance(playerPos, MainScene.sun.position) < GetLastPlanet(MainScene.sun)) return false;
 
             Vector2 starPos = StarMap.playerStar.Position;
-            Vector2 deltaPos = starPos - destinationStarPosition;
-            float sin = deltaPos.Y / deltaPos.X;
-            float angle = (float)Math.Atan(sin);
-            angle = Input.GetDegree(angle);
+            Vector2 deltaPos = destinationStarPosition - starPos;
 
             Vector2 playerDeltaPos = MainScene.player.position - MainScene.sun.position;
-            float pSin = playerDeltaPos.Y / playerDeltaPos.X;
-            float pAngle = (float)Math.Atan(pSin);
-            pAngle = Input.GetDegree(pAngle);
-            pAngle = pAngle - (float)Math.Floor(pAngle / 360) * 360;
+            deltaPos.Normalize();
+            playerDeltaPos.Normalize();
+            
             double angle2 = Math.Atan2(-deltaPos.Y, deltaPos.X);
             double pangle2 = Math.Atan2(-playerDeltaPos.Y, playerDeltaPos.X);
             angle2 = Input.GetDegree((float)angle2);
             pangle2 = Input.GetDegree((float)pangle2);
-            if (Math.Abs(angle - pAngle) > 90) return false;
-
+            if (Math.Abs(angle2 - pangle2) > 90)
+            {
+                return false;
+            }
             return true;
         }
         public static bool DeductPower(int cap)

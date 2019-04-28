@@ -12,16 +12,12 @@ namespace StarGame
     {
         public static List<Star> Stars { get; set; } = new List<Star>();
         private static Rectangle size = new Rectangle(0, 0, 970, 580);
-        public static Star playerStar;
+        public static Star playerStar = new Star(new Vector2(30,30));
         public Vector2 Position { get; set; }
         public StarMap(Vector2 pos)
         {
             Position = pos;
-            playerStar = new Star
-            {
-                Position = new Vector2(30,30),
-                color = Color.Red
-            };
+            playerStar.color = Color.Red;
             Stars.Add(playerStar);
             size.Location = Position.ToPoint();
         }
@@ -44,7 +40,7 @@ namespace StarGame
         }
         public static void GenerateStars(int amount)
         {
-            int minDist = 50;
+            int minDist = 30;
             Random rng = new Random();
             for(int i = 0; i < amount; i++)
             {
@@ -70,8 +66,15 @@ namespace StarGame
                     if (Vector2.Distance(j.Position, playerStar.Position) > Player.JumpDistance) return;
 
                     if (!JumpAssistant.IsPlayerInVaidPosition(j.Position)) return;
+                    if (!JumpAssistant.DeductPower(100)) return;
 
                     JumpAssistant.Jump();
+                    MainScene.ui.SetView(DisplayedUI.None);
+                    playerStar.color = Color.Orange;
+                    j.color = Color.Red;
+                    playerStar = j;
+                    
+                    
                 }
             }
             if (Input.IsMouseKeyUp(0))
