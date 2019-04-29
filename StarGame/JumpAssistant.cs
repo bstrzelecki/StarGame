@@ -29,7 +29,7 @@ namespace StarGame
             double pangle2 = Math.Atan2(-playerDeltaPos.Y, playerDeltaPos.X);
             angle2 = Input.GetDegree((float)angle2);
             pangle2 = Input.GetDegree((float)pangle2);
-            if (Math.Abs(angle2 - pangle2) > 90)
+            if (Math.Abs(angle2 - pangle2) > 25)
             {
                 Notifications.DisplayNotification("You are in wrong edge of system, " + Math.Abs(angle2 - pangle2));
                 return false;

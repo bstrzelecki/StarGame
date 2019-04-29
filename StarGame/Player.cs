@@ -97,9 +97,8 @@ namespace StarGame
 
         private void RenewPower()
         {
-            float resupply = 250 / Vector2.Distance(MainScene.sun.position, position);
-            //Debug.WriteLine(resupply);
-            if (resupply > 0.0001f)
+            float resupply = 10 / Vector2.Distance(MainScene.sun.position, position);
+            if (resupply > 0.01f)
             {
                 if (MainScene.barArray.GetResource("power") + resupply <= 100)
                 {
@@ -107,7 +106,9 @@ namespace StarGame
                 }
                 else if (MainScene.barArray.GetResource("power") != 100)
                 {
-                    MainScene.barArray.SetResource("power", 100);
+                    float temp = 100 - MainScene.barArray.GetResource("power");
+                    if(temp <= resupply)
+                        MainScene.barArray.AddResource("power", temp);
                 }
             }
         }

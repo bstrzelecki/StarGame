@@ -61,7 +61,7 @@ namespace StarGame
                 background.Remove(t);
             }
             radar.Clear();
-            radar.AddBlip(player.position,sun.position);
+            radar.AddBlip(player.position,sun.position, Color.BurlyWood);
 
             foreach(Planet planet in sun.planets)
             {

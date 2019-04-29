@@ -11,7 +11,7 @@ namespace StarGame
     class Notifications
     {
         private static string displayedText;
-        private static float notificationsTime = 20f;
+        private static float notificationsTime = 60f;
         private static float decay;
         public static void DisplayNotification(string text)
         {
