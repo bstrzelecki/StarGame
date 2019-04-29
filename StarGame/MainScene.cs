@@ -34,6 +34,7 @@ namespace StarGame
             meter.Draw(sprite);
             barArray.Draw(sprite);
             ui.Draw(sprite);
+            Notifications.Draw(sprite);
         }
 
         public void Update()

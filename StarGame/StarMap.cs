@@ -92,6 +92,7 @@ namespace StarGame
     {
         public Vector2 Position { get; set; }
         public Color color;
+        //TODO:Add star system if visited
         public Star()
         {
 

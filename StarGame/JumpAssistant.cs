@@ -12,7 +12,11 @@ namespace StarGame
         public static bool IsPlayerInVaidPosition(Vector2 destinationStarPosition)
         {
             Vector2 playerPos = MainScene.player.position;
-            if (Vector2.Distance(playerPos, MainScene.sun.position) < GetLastPlanet(MainScene.sun)) return false;
+            if (Vector2.Distance(playerPos, MainScene.sun.position) < GetLastPlanet(MainScene.sun))
+            {
+                Notifications.DisplayNotification("You are too close to star, " + Vector2.Distance(playerPos, MainScene.sun.position));
+                return false;
+            }
 
             Vector2 starPos = StarMap.playerStar.Position;
             Vector2 deltaPos = destinationStarPosition - starPos;
@@ -27,6 +31,7 @@ namespace StarGame
             pangle2 = Input.GetDegree((float)pangle2);
             if (Math.Abs(angle2 - pangle2) > 90)
             {
+                Notifications.DisplayNotification("You are in wrong edge of system, " + Math.Abs(angle2 - pangle2));
                 return false;
             }
             return true;
@@ -38,6 +43,7 @@ namespace StarGame
                 MainScene.barArray.SubtractResource("power", cap * .9f);
                 return true;
             }
+            Notifications.DisplayNotification("Not enough power");
             return false;
         }
         public static void Jump()
@@ -48,6 +54,7 @@ namespace StarGame
             MainScene.sun = rsg.Build();
             newPlayerPos *= GetLastPlanet(MainScene.sun) + 500;
             MainScene.player.position = newPlayerPos;
+            Notifications.DisplayNotification("Jumped!!!");
         }
         private static float GetLastPlanet(StarSystem system)
         {

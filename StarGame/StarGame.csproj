@@ -50,6 +50,7 @@
     <Compile Include="Interfaces\IUpdateable.cs" />
     <Compile Include="JumpAssistant.cs" />
     <Compile Include="MainScene.cs" />
+    <Compile Include="Notifications.cs" />
     <Compile Include="Physics.cs" />
     <Compile Include="Planet.cs" />
     <Compile Include="Player.cs" />
