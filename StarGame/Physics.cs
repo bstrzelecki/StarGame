@@ -48,7 +48,6 @@ namespace StarGame
         {
             Physics ph = new Physics();
             ph.velocity = velocity;
-            //ph.acceleration = acceleration;
             return ph;
         }
     }

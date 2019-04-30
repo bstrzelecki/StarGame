@@ -24,10 +24,15 @@ namespace StarGame
         public static UIController ui;
         public void Draw(SpriteBatch sprite)
         {
-            foreach(Tile tile in background)
+            foreach (Tile tile in background)
             {
                 sprite.Draw(tile.sprite, tile.position * this.tile.Width + Input.cameraOffset, Color.White);
             }
+            DrawObjects(sprite);
+        }
+
+        private void DrawObjects(SpriteBatch sprite)
+        {
             player.Draw(sprite);
             sun.Draw(sprite);
             radar.Draw(sprite);
@@ -40,39 +45,26 @@ namespace StarGame
         public void Update()
         {
             Input.cameraOffset = -player.position + player.screenPosition;
-            Vector2 playerInBackground = player.position/tile.Width;
-            int backgroundWidth = Game1.graphics.GraphicsDevice.Viewport.Width / tile.Width;
-            int backgroundHeight = Game1.graphics.GraphicsDevice.Viewport.Height / tile.Width;
-            for (int x = (int)playerInBackground.X-backgroundWidth - 1; x < backgroundWidth + (int)playerInBackground.X+1; x++)
-            {
-                for (int y = (int)playerInBackground.Y-backgroundHeight - 1; y < backgroundHeight + (int)playerInBackground.Y + 1; y++)
-                {
-                    if ((from n in background where n.position == new Vector2(x, y) select n).Count() > 0) continue;
-                    background.Add(new Tile(new Vector2(x, y)));
-                }
-            }
-            List<Tile> toDelete = new List<Tile>();
-            foreach(var t in (from n in background where Vector2.Distance(n.position,playerInBackground) > 5 select n))
-            {
-                toDelete.Add(t);
-            }
-            foreach(Tile t in toDelete)
-            {
-                background.Remove(t);
-            }
-            radar.Clear();
-            radar.AddBlip(player.position,sun.position, Color.BurlyWood);
+            Vector2 playerInBackground = player.position / tile.Width;
+            SetupBackground(playerInBackground);
+            RenderRadar();
+            UpdateObjects();
+            HandleInput();
+            ExeCommands();
 
-            foreach(Planet planet in sun.planets)
+        }
+
+        private static void ExeCommands()
+        {
+            if (Input.IsKeyDown(Keys.C))
             {
-                radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
-                foreach(Planet moon in planet.moons)
-                {
-                    radar.AddBlip(player.position, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
-                }
+                Debbuger.OpenConsole();
             }
-            player.Update();
-            ui.Update();
+            Debbuger.ExecuteCommands();
+        }
+
+        private static void HandleInput()
+        {
             if (Input.IsKeyDown(Keys.M))
             {
                 ui.SetView(DisplayedUI.StarMap);
@@ -89,27 +81,67 @@ namespace StarGame
             {
                 Time.IsStopped = false;
             }
+        }
 
-            if (Input.IsKeyDown(Keys.C))
+        private static void UpdateObjects()
+        {
+            player.Update();
+            ui.Update();
+        }
+
+        private void RenderRadar()
+        {
+            radar.Clear();
+            radar.AddBlip(player.position, sun.position, Color.BurlyWood);
+
+            foreach (Planet planet in sun.planets)
             {
-                Debbuger.OpenConsole();
+                radar.AddBlip(player.position, Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
+                foreach (Planet moon in planet.moons)
+                {
+                    radar.AddBlip(player.position, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
+                }
             }
-            Debbuger.ExecuteCommands();
+        }
 
+        private void SetupBackground(Vector2 playerInBackground)
+        {
+            int backgroundWidth = Game1.graphics.GraphicsDevice.Viewport.Width / tile.Width;
+            int backgroundHeight = Game1.graphics.GraphicsDevice.Viewport.Height / tile.Width;
+            for (int x = (int)playerInBackground.X - backgroundWidth - 1; x < backgroundWidth + (int)playerInBackground.X + 1; x++)
+            {
+                for (int y = (int)playerInBackground.Y - backgroundHeight - 1; y < backgroundHeight + (int)playerInBackground.Y + 1; y++)
+                {
+                    if ((from n in background where n.position == new Vector2(x, y) select n).Count() > 0) continue;
+                    background.Add(new Tile(new Vector2(x, y)));
+                }
+            }
+            List<Tile> toDelete = new List<Tile>();
+            foreach (var t in (from n in background where Vector2.Distance(n.position, playerInBackground) > 5 select n))
+            {
+                toDelete.Add(t);
+            }
+            foreach (Tile t in toDelete)
+            {
+                background.Remove(t);
+            }
         }
 
         internal void Init()
         {
             player = new Player();
+
             RandomSpaceGenerator gen = new RandomSpaceGenerator();
             sun = gen.Build();
             sun.position = new Vector2(6000, 6000);
+
             tile = Game1.textures["tile"];
             radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
             proxy = new SimulationProxy();
             meter = new SpeedOMeter();
             barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
             ui = new UIController();
+
             StarMap.GenerateStars(150);
         }
     }

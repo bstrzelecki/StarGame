@@ -48,6 +48,11 @@ namespace StarGame
             }
             return false;
         }
+        /// <summary>
+        /// Returns if mouse button is released
+        /// </summary>
+        /// <param name="btn">Number of button: 0 - Left, 1 - Middle, 2 - Right </param>
+        /// <returns></returns>
         public static bool IsMouseKeyUp(int btn)
         {
             MouseState state = Mouse.GetState();

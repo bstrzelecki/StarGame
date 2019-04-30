@@ -50,13 +50,18 @@ namespace StarGame
         public void Draw(SpriteBatch sprite)
         {
             sprite.Draw(this.sprite, position, Color.White);
-            foreach(Blip blip in blips)
+            foreach (Blip blip in blips)
             {
-                if(blip.Position.Length() < 11)
+                if (blip.Position.Length() < 11)
                 {
-                    sprite.Draw(Game1.textures["blip"], position + blip.Position * 9 + new Vector2(120,120), blip.Type);
+                    sprite.Draw(Game1.textures["blip"], position + blip.Position * 9 + new Vector2(120, 120), blip.Type);
                 }
             }
+            DrawSimulation(sprite);
+        }
+
+        private void DrawSimulation(SpriteBatch sprite)
+        {
             foreach (Vector2 blip in MainScene.proxy.blips)
             {
                 Vector2 b;
@@ -64,7 +69,7 @@ namespace StarGame
                 b /= scale;
                 if (b.Length() < 11)
                 {
-                    sprite.Draw(Game1.textures["WhitePixel"],new Rectangle((position + b * 9 + new Vector2(123, 123)).ToPoint(),new Point(3,3)), Color.Blue);
+                    sprite.Draw(Game1.textures["WhitePixel"], new Rectangle((position + b * 9 + new Vector2(123, 123)).ToPoint(), new Point(3, 3)), Color.Blue);
                 }
             }
         }
