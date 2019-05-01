@@ -21,11 +21,11 @@ namespace StarGame
             Debbuger.OnCmd += Debbuger_OnCmd;
         }
 
-        private void Debbuger_OnCmd(string[] cmd)
+        private void Debbuger_OnCmd(CommandCompund cmd)
         {
-            if (cmd[0] == "resource")
+            if (cmd.Check("resource"))
             {
-                SetResource(cmd[1], int.Parse(cmd[2]));
+                SetResource(cmd, cmd.GetInt(0));
             }
         }
 

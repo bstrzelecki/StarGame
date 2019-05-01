@@ -44,17 +44,17 @@ namespace StarGame
             Debbuger.OnCmd += Debbuger_OnCmd;
         }
 
-        private void Debbuger_OnCmd(string[] cmd)
+        private void Debbuger_OnCmd(CommandCompund cmd)
         {
-            if(cmd[0] == "player")
+            if(cmd.Check("player"))
             {
-                if(cmd[1] == "usegravity")
+                if(cmd == "usegravity")
                 {
-                    useGravity = bool.Parse(cmd[2]);
+                    useGravity = cmd.GetBool(0);
                 }
-                if (cmd[1] == "position")
+                if (cmd == "position")
                 {
-                    position = new Vector2(int.Parse(cmd[2]),int.Parse(cmd[3]));
+                    position = new Vector2(cmd.GetInt(0), cmd.GetInt(1));
                 }
             }
         }

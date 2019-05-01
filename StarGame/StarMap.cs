@@ -21,6 +21,23 @@ namespace StarGame
             Stars.Add(playerStar);
             size.Location = Position.ToPoint();
         }
+        public static void Init()
+        {
+            Debbuger.OnCmd += Debbuger_OnCmd;
+        }
+
+        private static void Debbuger_OnCmd(CommandCompund cmd)
+        {
+            if(cmd.Check("starmap"))
+            {
+                if(cmd == "recreate")
+                {
+                    Stars.Clear();
+                    GenerateStars(150);
+                    Stars.Add(playerStar);
+                }
+            }
+        }
 
         public void Draw(SpriteBatch sprite)
         {

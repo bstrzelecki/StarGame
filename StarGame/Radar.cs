@@ -32,13 +32,13 @@ namespace StarGame
             Debbuger.OnCmd += Debbuger_OnCmd;
         }
 
-        private void Debbuger_OnCmd(string[] cmd)
+        private void Debbuger_OnCmd(CommandCompund cmd)
         {
-            if (cmd[0] == "radar")
+            if (cmd.Check("radar"))
             {
-                if(cmd[1] == "scale")
+                if(cmd == "scale")
                 {
-                    scale = int.Parse(cmd[2]);
+                    scale = cmd.GetInt(0);
                 }
             }
         }

@@ -143,6 +143,7 @@ namespace StarGame
             ui = new UIController();
 
             StarMap.GenerateStars(150);
+            StarMap.Init();
         }
     }
 }

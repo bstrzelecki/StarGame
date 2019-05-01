@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -12,7 +13,7 @@ namespace StarGame
     {
         [DllImport("kernel32")]
         static extern bool AllocConsole();
-        public delegate void Command(string[] cmd); 
+        public delegate void Command(CommandCompund cmd); 
         public static event Command OnCmd;
         private static List<string> cmds = new List<string>();
         public static void OpenConsole()
@@ -34,14 +35,62 @@ namespace StarGame
                 string[] rg = cmd.Split('.');
                 string[] arg = rg[1].Split(' ');
                 List<string> c = new List<string>();
-                c.Add(rg[0]);
-                foreach(string n in arg)
+                foreach (string n in arg)
                 {
                     c.Add(n);
                 }
-                OnCmd(c.ToArray());
+                string t = c[0];
+                c.RemoveAt(0);
+                CommandCompund cp = new CommandCompund(rg[0], t, c.ToArray());
+                OnCmd(cp);
             }
             cmds.Clear();
+        }
+    }
+    class CommandCompund
+    {
+        public string Target { get; set; }
+        public string Source { get; set; }
+        public string[] Values { get; set; }
+
+        public CommandCompund(string dest, string res, params string[] val)
+        {
+            Target = dest;
+            Source = res;
+            Values = val;
+        }
+        public bool Check(string a)
+        {
+            return Target == a;
+        }
+        public static implicit operator String(CommandCompund command)
+        {
+            return command.Source;
+        }
+        public int GetInt(int i)
+        {
+            int temp;
+            if(int.TryParse(Values[i],out temp))
+            {
+                return temp;
+            }
+            else{
+                Debug.WriteLine("Cont convert value to int !!!!");
+                return int.Parse(Values[i]);
+            }
+        }
+        public bool GetBool(int i)
+        {
+            bool temp;
+            if (bool.TryParse(Values[i], out temp))
+            {
+                return temp;
+            }
+            else
+            {
+                Debug.WriteLine("Cont convert value to bool !!!!");
+                return bool.Parse(Values[i]);
+            }
         }
     }
 }
