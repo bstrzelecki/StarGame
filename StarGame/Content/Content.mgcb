@@ -44,6 +44,18 @@
 /processorParam:TextureFormat=Compressed
 /build:font.spritefont
 
+#begin inventory.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:inventory.png
+
 #begin mapview.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -356,6 +368,18 @@
 /processorParam:TextureFormat=Color
 /build:radar.png
 
+#begin slot.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:slot.png
+
 #begin starmap.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -367,6 +391,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:starmap.jpg
+
+#begin system.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:system.png
 
 #begin tile.jpg
 /importer:TextureImporter

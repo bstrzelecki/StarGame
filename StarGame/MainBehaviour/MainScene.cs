@@ -69,6 +69,10 @@ namespace StarGame
             {
                 ui.SetView(DisplayedUI.StarMap);
             }
+            if (Input.IsKeyDown(Keys.I))
+            {
+                ui.SetView(DisplayedUI.Inventory);
+            }
             if (Input.IsKeyDown(Keys.N))
             {
                 ui.SetView(DisplayedUI.None);

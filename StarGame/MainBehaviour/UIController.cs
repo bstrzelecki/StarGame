@@ -17,6 +17,7 @@ namespace StarGame
         public UIController()
         {
             guis.Add(DisplayedUI.StarMap, new Sprite("mapview"));
+            guis.Add(DisplayedUI.Inventory, new Sprite("inventory"));
             
         }
         public void SetView(DisplayedUI ui)
@@ -30,8 +31,11 @@ namespace StarGame
             }
             else
             {
-                sm.Dispose();
-                sm = null;
+                if (sm != null)
+                {
+                    sm.Dispose();
+                    sm = null;
+                }
             }
         }
         public void Draw(SpriteBatch sprite)
@@ -43,10 +47,17 @@ namespace StarGame
                 case DisplayedUI.StarMap:        
                     DrawStarMap(sprite);
                     break;
+                case DisplayedUI.Inventory:
+                    DrawInventory(sprite);
+                    break;
             }
         }
 
-        
+        private void DrawInventory(SpriteBatch sprite)
+        {
+            sprite.Draw(guis[DisplayedUI.Inventory], position, Color.White);
+        }
+
         private void DrawStarMap(SpriteBatch sprite)
         {
             sprite.Draw(guis[DisplayedUI.StarMap], position, Color.White);
