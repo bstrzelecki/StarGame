@@ -12,7 +12,7 @@ namespace StarGame
     {
         public DisplayedUI UI { get; set; }
         public Dictionary<DisplayedUI, Sprite> guis = new Dictionary<DisplayedUI, Sprite>();
-        Vector2 position = new Vector2(30, 30);
+        public static Vector2 position = new Vector2(30, 30);
         StarMap sm;
         public UIController()
         {
@@ -56,6 +56,7 @@ namespace StarGame
         private void DrawInventory(SpriteBatch sprite)
         {
             sprite.Draw(guis[DisplayedUI.Inventory], position, Color.White);
+            MainScene.inventory.Draw(sprite);
         }
 
         private void DrawStarMap(SpriteBatch sprite)

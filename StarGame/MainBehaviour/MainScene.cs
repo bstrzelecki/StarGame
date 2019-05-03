@@ -22,6 +22,7 @@ namespace StarGame
         public SpeedOMeter meter;
         public static BarArray barArray;
         public static UIController ui;
+        public static Inventory inventory;
         public void Draw(SpriteBatch sprite)
         {
             foreach (Tile tile in background)
@@ -145,7 +146,7 @@ namespace StarGame
             meter = new SpeedOMeter();
             barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
             ui = new UIController();
-
+            inventory = new Inventory();
             StarMap.GenerateStars(150);
             StarMap.Init();
         }
