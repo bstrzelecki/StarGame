@@ -52,6 +52,7 @@ namespace StarGame
             UpdateObjects();
             HandleInput();
             ExeCommands();
+            inventory.Update();
 
         }
 

@@ -8,19 +8,56 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace StarGame
 {
-    class Inventory : IDrawable
+    class Inventory : IDrawable, IUpdateable
     {
         public List<Item> Items { get; set; } = new List<Item>();
         public UtilitySlot[] Utilities { get; set; } = new UtilitySlot[7];
         public Sprite slot;
         public Sprite util;
+
+        private Rectangle[] slotCollisions = new Rectangle[72];
+        public int InventorySize { get; set; } = 72;
+
+        public bool AddItem(Item item)
+        {
+            if (Items.Count > 72)
+            {
+                Notifications.DisplayNotification("Inventory full");
+                return false;
+            }
+            Items.Add(item);
+            int p = Items.IndexOf(item);
+            slotCollisions[p] = GetRectangle(p);
+            return true;
+        }
+        public bool RemoveItem(int slot, out Item item)
+        {
+            if (Items.Count > slot && Items[slot] != null)
+            {
+                item = Items[slot];
+                slotCollisions[(from n in slotCollisions where n != Rectangle.Empty select n).ToList().Count - 1] = Rectangle.Empty;
+                Items.RemoveAt(slot);
+                return true;
+            }
+            item = null;
+            return false;
+        }
+
+        private Rectangle GetRectangle(int p)
+        {
+            return new Rectangle(p % (slotCap + 1) * (slot.Size.Width + 8) + (int)UIController.position.X + (int)slotsOffset.X + 48,
+                                 p / (slotCap + 1) * (slot.Size.Height + 5) + (int)UIController.position.Y + (int)slotsOffset.Y + 16,
+                slot.Size.Width,
+                slot.Size.Height);
+        }
+
         public Inventory()
         {
             slot = new Sprite("slot");
             util = new Sprite("system");
             for(int i = 0; i < 72; i++)
             {
-                Items.Add(new Thruster());
+                AddItem(new Thruster());
             }
             for(int i = 0; i < 7; i++)
             {
@@ -29,6 +66,7 @@ namespace StarGame
         }
         private Vector2 slotsOffset = new Vector2(230, 86);
         private Vector2 utilitiesOffset = new Vector2(20, 80);
+        private Vector2 resourceOffset = new Vector2(870, 150);
         private int slotCap = 8;
         public void Draw(SpriteBatch sprite)
         {
@@ -54,6 +92,70 @@ namespace StarGame
                 sprite.DrawString(Game1.fonts["font"], us.item.Name, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12,26), Color.Green);
                 i++;
             }
+            i = 0;
+            foreach(Resource res in MainScene.barArray.Resources)
+            {
+                sprite.DrawString(Game1.fonts["font"], res.ToString(), UIController.position + resourceOffset + new Vector2(0, 20 * i), Color.Green);
+                i++;
+            }
+            if(dragItem != null)
+            {
+                sprite.Draw(slot, mouseRelativePosition + Input.GetMousePosition(), Color.White);
+                sprite.Draw(dragItem.Graphic, mouseRelativePosition + Input.GetMousePosition() + new Vector2(6, 6), Color.White);
+            }
+            //sprite.Draw(new Sprite("WhitePixel"), inventorySpace, Color.Red);
+        }
+        bool isDragging = false;
+        bool firstClick = true;
+        Item dragItem;
+        Vector2 mouseRelativePosition;
+        Rectangle inventorySpace;
+        public void Update()
+        {
+            if (MainScene.ui.UI != DisplayedUI.Inventory) return;
+            inventorySpace = new Rectangle(UIController.position.ToPoint() + slotsOffset.ToPoint(), new Point(slotCap * (slot.Size.Width + 16), InventorySize / slotCap * (slot.Size.Height - 2)));
+            if (Input.IsMouseKeyDown(0) && !isDragging && firstClick)
+            {
+                firstClick = false;
+                Rectangle rect;
+                if (CheckCollisions(out rect))
+                {
+                    int i = slotCollisions.ToList().IndexOf(rect);
+                    if(RemoveItem(i,out Item item))
+                    {
+                        dragItem = item;
+                        mouseRelativePosition =  rect.Location.ToVector2() - Input.GetMousePosition();
+                    }
+                }
+            }
+            if (dragItem != null) isDragging = true;
+            else isDragging = false;
+            if(Input.IsMouseKeyUp(0))
+            {
+                firstClick = true;
+                if (isDragging)
+                {
+                    if (inventorySpace.Contains(Input.GetMousePosition()))
+                    {
+                        AddItem(dragItem);
+                    }
+                    dragItem = null;
+                }
+            }
+        }
+
+        private bool CheckCollisions(out Rectangle r)
+        {
+            foreach (Rectangle rect in slotCollisions)
+            {
+                if (rect.Contains(Input.GetMousePosition()))
+                {
+                    r = rect;
+                    return true;
+                }
+            }
+            r = Rectangle.Empty;
+            return false;
         }
     }
 }

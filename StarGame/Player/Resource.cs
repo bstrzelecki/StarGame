@@ -24,5 +24,11 @@ namespace StarGame
         {
             return (int)Quantity / BarScale;
         }
+
+        public override string ToString()
+        {
+            string n = Name[0].ToString().ToUpper() + Name.Substring(1, Name.Length - 1);
+            return n + ": " + Quantity;
+        }
     }
 }

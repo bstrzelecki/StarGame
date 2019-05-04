@@ -19,7 +19,10 @@ namespace StarGame
         }
         public Sprite(string sprite)
         {
-            Texture = Game1.textures[sprite];
+            if (Game1.textures.ContainsKey(sprite))
+                Texture = Game1.textures[sprite];
+            else
+                Texture = Game1.textures["WhitePixel"];
             Size = Texture.Bounds;
         }
         public static implicit operator Texture2D(Sprite sprite)

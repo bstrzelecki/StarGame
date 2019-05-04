@@ -18,6 +18,7 @@ namespace StarGame
         {
             Game1.RegisterUpdate(scene);
             Game1.RegisterUpdate(time);
+            //Game1.RegisterUpdate(MainScene.inventory);
         }
         public static void RegisterRenderers()
         {

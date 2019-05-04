@@ -24,6 +24,6 @@ namespace StarGame
         Generator,
         Radar,
         Tank,
-        Container
+        Armor
     }
 }
