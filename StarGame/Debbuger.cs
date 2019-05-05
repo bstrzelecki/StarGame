@@ -76,8 +76,8 @@ namespace StarGame
             }
             else{
                 Debug.WriteLine("Cont convert value to int !!!!");
-                return int.Parse(Values[i]);
             }
+            return 0;
         }
         public bool GetBool(int i)
         {
@@ -89,8 +89,8 @@ namespace StarGame
             else
             {
                 Debug.WriteLine("Cont convert value to bool !!!!");
-                return bool.Parse(Values[i]);
             }
+            return false;
         }
     }
 }

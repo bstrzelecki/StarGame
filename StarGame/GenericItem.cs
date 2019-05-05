@@ -6,17 +6,22 @@ using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Thruster : Item
+    class GenericItem : Item
     {
-        public Thruster()
+        public GenericItem(Slot slot, string name, Sprite sprite)
         {
-            Graphic = new Sprite("blip");
-            Name = "thruster";
-            InventorySlot = Slot.Thruster;
+            InventorySlot = slot;
+            Name = name;
+            Graphic = sprite;
         }
         public override void Apply()
         {
             throw new NotImplementedException();
+        }
+
+        public override Item Clone()
+        {
+            return new GenericItem(InventorySlot, Name, Graphic);
         }
 
         public override void Use()

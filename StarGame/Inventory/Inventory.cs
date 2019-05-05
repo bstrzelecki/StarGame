@@ -62,6 +62,7 @@ namespace StarGame
             for(int i = 0; i < 7; i++)
             {
                 Utilities[i] = new UtilitySlot((Slot)i, new Thruster());
+                Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(48,16));
             }
         }
         private Vector2 slotsOffset = new Vector2(230, 86);
@@ -104,6 +105,10 @@ namespace StarGame
                 sprite.Draw(dragItem.Graphic, mouseRelativePosition + Input.GetMousePosition() + new Vector2(6, 6), Color.White);
             }
             //sprite.Draw(new Sprite("WhitePixel"), inventorySpace, Color.Red);
+            //foreach(UtilitySlot u in Utilities)
+            //{
+            //    sprite.Draw(new Sprite("WhitePixel"), u.size, Color.Red);
+            //}
         }
         bool isDragging = false;
         bool firstClick = true;
@@ -132,18 +137,56 @@ namespace StarGame
             else isDragging = false;
             if(Input.IsMouseKeyUp(0))
             {
-                firstClick = true;
-                if (isDragging)
-                {
-                    if (inventorySpace.Contains(Input.GetMousePosition()))
-                    {
-                        AddItem(dragItem);
-                    }
-                    dragItem = null;
-                }
+                Drop();
             }
         }
 
+        private void Drop()
+        {
+            firstClick = true;
+            if (isDragging)
+            {
+                if (inventorySpace.Contains(Input.GetMousePosition()))
+                {
+                    AddItem(dragItem.Clone());
+                }
+                if (UtilityCollisions(out int i))
+                {
+                    if (Utilities[i].slot == dragItem.InventorySlot)
+                    {
+                        if (Utilities[i].item == null)
+                        {
+                            Utilities[i].item = dragItem.Clone();
+                        }
+                        else
+                        {
+                            AddItem(Utilities[i].item.Clone());
+                            Utilities[i].item = dragItem.Clone();
+                        }
+                    }
+                    else
+                    {
+                        AddItem(dragItem.Clone());
+                    }
+                }
+                dragItem = null;
+            }
+        }
+
+        private bool UtilityCollisions(out int slot)
+        {
+            slot = 0;
+            foreach(UtilitySlot u in Utilities)
+            {
+                slot++;
+                if (u.size.Contains(Input.GetMousePosition()))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
         private bool CheckCollisions(out Rectangle r)
         {
             foreach (Rectangle rect in slotCollisions)

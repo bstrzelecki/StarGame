@@ -15,6 +15,8 @@ namespace StarGame
         public int Price { get; set; }
         public abstract void Use();
         public abstract void Apply();
+
+        public abstract Item Clone();
     }
     enum Slot
     {

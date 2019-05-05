@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,11 +11,16 @@ namespace StarGame
     {
         public Slot slot;
         public Item item;
-
+        public Rectangle size;
         public UtilitySlot(Slot slot, Item item)
         {
             this.slot = slot;
             this.item = item;
+
+        }
+        public void ApplyCollisions(Vector2 pos)
+        {
+            size = new Rectangle(pos.ToPoint(), new Sprite("system").Size.Size);
         }
     }
 }
