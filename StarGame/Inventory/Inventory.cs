@@ -45,8 +45,8 @@ namespace StarGame
 
         private Rectangle GetRectangle(int p)
         {
-            return new Rectangle(p % (slotCap + 1) * (slot.Size.Width + 8) + (int)UIController.position.X + (int)slotsOffset.X + 48,
-                                 p / (slotCap + 1) * (slot.Size.Height + 5) + (int)UIController.position.Y + (int)slotsOffset.Y + 16,
+            return new Rectangle(p % (slotCap + 1) * (slot.Size.Width + 8) + (int)UIController.position.X + (int)slotsOffset.X,
+                                 p / (slotCap + 1) * (slot.Size.Height + 5) + (int)UIController.position.Y + (int)slotsOffset.Y,
                 slot.Size.Width,
                 slot.Size.Height);
         }
@@ -55,20 +55,27 @@ namespace StarGame
         {
             slot = new Sprite("slot");
             util = new Sprite("system");
-            for(int i = 0; i < 72; i++)
-            {
-                AddItem(new Thruster());
-            }
+            //for(int i = 0; i < 72; i++)
+            //{
+            //    AddItem(new Thruster());
+            //}
+            AddItem(new GenericItem(Slot.Armor, "plate", new Sprite("ar")));
+            AddItem(new GenericItem(Slot.Generator, "reactor", new Sprite("g")));
+            AddItem(new GenericItem(Slot.JumpDrive, "stdJumpDrive", new Sprite("jd")));
+            AddItem(new GenericItem(Slot.Armor, "basic armor", new Sprite("blip")));
+            AddItem(new GenericItem(Slot.Armor, "advanced armor", new Sprite("ar")));
+            AddItem(new GenericItem(Slot.Armor, "crystal plate", new Sprite("ar")));
             for(int i = 0; i < 7; i++)
             {
                 Utilities[i] = new UtilitySlot((Slot)i, new Thruster());
-                Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(48,16));
+                Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i));
             }
         }
         private Vector2 slotsOffset = new Vector2(230, 86);
         private Vector2 utilitiesOffset = new Vector2(20, 80);
         private Vector2 resourceOffset = new Vector2(870, 150);
         private int slotCap = 8;
+        bool drawUICollisions = false;
         public void Draw(SpriteBatch sprite)
         {
             int i = 0;
@@ -105,10 +112,17 @@ namespace StarGame
                 sprite.Draw(dragItem.Graphic, mouseRelativePosition + Input.GetMousePosition() + new Vector2(6, 6), Color.White);
             }
             //sprite.Draw(new Sprite("WhitePixel"), inventorySpace, Color.Red);
-            //foreach(UtilitySlot u in Utilities)
-            //{
-            //    sprite.Draw(new Sprite("WhitePixel"), u.size, Color.Red);
-            //}
+            if (drawUICollisions)
+            {
+                foreach (UtilitySlot u in Utilities)
+                {
+                    sprite.Draw(new Sprite("WhitePixel"), u.size, Color.Red);
+                }
+                foreach (Rectangle rect in slotCollisions)
+                {
+                    sprite.Draw(new Sprite("WhitePixel"), rect, Color.Red);
+                } 
+            }
         }
         bool isDragging = false;
         bool firstClick = true;
@@ -175,7 +189,7 @@ namespace StarGame
 
         private bool UtilityCollisions(out int slot)
         {
-            slot = 0;
+            slot = -1;
             foreach(UtilitySlot u in Utilities)
             {
                 slot++;

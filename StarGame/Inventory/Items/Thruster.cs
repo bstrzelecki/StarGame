@@ -10,7 +10,7 @@ namespace StarGame
     {
         public Thruster()
         {
-            Graphic = new Sprite("blip");
+            Graphic = new Sprite("th");
             Name = "thruster";
             InventorySlot = Slot.Thruster;
         }

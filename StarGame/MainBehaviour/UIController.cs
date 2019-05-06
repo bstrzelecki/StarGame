@@ -18,7 +18,8 @@ namespace StarGame
         {
             guis.Add(DisplayedUI.StarMap, new Sprite("mapview"));
             guis.Add(DisplayedUI.Inventory, new Sprite("inventory"));
-            
+            position = new Vector2((Game1.graphics.PreferredBackBufferWidth - guis[DisplayedUI.Inventory].Size.Width) / 2, (Game1.graphics.PreferredBackBufferHeight - guis[DisplayedUI.Inventory].Size.Height) / 2);
+
         }
         public void SetView(DisplayedUI ui)
         {

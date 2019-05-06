@@ -42,8 +42,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Inventory.cs" />
-    <Compile Include="Item.cs" />
+    <Compile Include="GenericItem.cs" />
+    <Compile Include="Inventory\Inventory.cs" />
+    <Compile Include="Inventory\Item.cs" />
     <Compile Include="Player\BarArray.cs" />
     <Compile Include="Debbuger.cs" />
     <Compile Include="Game1.cs" />
@@ -54,8 +55,8 @@
     <Compile Include="MainBehaviour\MainScene.cs" />
     <Compile Include="MainBehaviour\Notifications.cs" />
     <Compile Include="MainBehaviour\Physics.cs" />
-    <Compile Include="Thruster.cs" />
-    <Compile Include="UtilitySlot.cs" />
+    <Compile Include="Inventory\Items\Thruster.cs" />
+    <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />
