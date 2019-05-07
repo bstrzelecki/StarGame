@@ -25,7 +25,7 @@ namespace StarGame
         }
         private int nameLenght = 0;
 
-        public string Description { get; set; }
+        public string Description { get; set; } = "asdasasdsadasd\nasasdasdasda\nsdasdasasdasdasdasdasdasdasdasadd\nassdsaasdasdasdasdasasdsd";
         public Vector2 DescriptionSize
         {
             get

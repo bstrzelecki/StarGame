@@ -70,6 +70,7 @@ namespace StarGame
                 Utilities[i] = new UtilitySlot((Slot)i, new Thruster());
                 Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i));
             }
+            
         }
         private Vector2 slotsOffset = new Vector2(230, 86);
         private Vector2 utilitiesOffset = new Vector2(20, 80);
@@ -123,6 +124,21 @@ namespace StarGame
                     sprite.Draw(new Sprite("WhitePixel"), rect, Color.Red);
                 } 
             }
+            if(hoverItem != null)
+            {
+                DrawTooltip(Input.GetMousePosition(), hoverItem, sprite);
+            }
+        }
+        Item hoverItem;
+        public void DrawTooltip(Vector2 position, Item item, SpriteBatch sprite)
+        {
+            Rectangle size = new Rectangle(position.ToPoint() + new Vector2(8,8).ToPoint(), new Point((int)Math.Max(item.NameLenght,item.DescriptionSize.X),(int)item.DescriptionSize.Y + 16));
+            sprite.Draw(new Sprite(), new Rectangle(position.ToPoint(), new Point((int)Math.Max(item.NameLenght, item.DescriptionSize.X) + 16, (int)item.DescriptionSize.Y + 32)), Color.Green);
+            sprite.Draw(new Sprite(), size, Color.Black);
+
+            sprite.DrawString(Game1.fonts["font"], item.Name, position + new Vector2(12, 8), Color.Green);
+            sprite.DrawString(Game1.fonts["font"], item.Description, position + new Vector2(12, 24), Color.Green);
+
         }
         bool isDragging = false;
         bool firstClick = true;
@@ -133,10 +149,21 @@ namespace StarGame
         {
             if (MainScene.ui.UI != DisplayedUI.Inventory) return;
             inventorySpace = new Rectangle(UIController.position.ToPoint() + slotsOffset.ToPoint(), new Point(slotCap * (slot.Size.Width + 16), InventorySize / slotCap * (slot.Size.Height - 2)));
+            if (!isDragging && CheckCollisions(out Rectangle rect))
+            {
+                int i = slotCollisions.ToList().IndexOf(rect);
+                hoverItem = Items[i];
+            }else if (UtilityCollisions(out int s))
+            {
+                hoverItem = Utilities[s].item;
+            }
+            else
+            {
+                hoverItem = null;
+            }
             if (Input.IsMouseKeyDown(0) && !isDragging && firstClick)
             {
                 firstClick = false;
-                Rectangle rect;
                 if (CheckCollisions(out rect))
                 {
                     int i = slotCollisions.ToList().IndexOf(rect);

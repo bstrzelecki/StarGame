@@ -39,6 +39,7 @@ namespace StarGame
                 }
             }
         }
+
         public void Draw(SpriteBatch sprite)
         {
             switch (UI)

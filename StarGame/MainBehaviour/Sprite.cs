@@ -25,6 +25,11 @@ namespace StarGame
                 Texture = Game1.textures["WhitePixel"];
             Size = Texture.Bounds;
         }
+        public Sprite()
+        {
+            Texture = Game1.textures["WhitePixel"];
+            Size = Texture.Bounds;
+        }
         public static implicit operator Texture2D(Sprite sprite)
         {
             return sprite.Texture;
