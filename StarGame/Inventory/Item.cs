@@ -25,7 +25,7 @@ namespace StarGame
         }
         private int nameLenght = 0;
 
-        public string Description { get; set; } = "asdasasdsadasd\nasasdasdasda\nsdasdasasdasdasdasdasdasdasdasadd\nassdsaasdasdasdasdasasdsd";
+        public string Description { get; set; } = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sed metus quis sem interdum vulputate.\nSed sem tellus, commodo ac augue quis, malesuada placerat purus.\nQuisque vulputate risus et hendrerit fringilla. Suspendisse imperdiet ligula et est tincidunt tempus.\nVivamus in finibus elit, ac hendrerit dui. Mauris ullamcorper metus ipsum, non rhoncus ipsum accumsan nec.";
         public Vector2 DescriptionSize
         {
             get
@@ -42,7 +42,7 @@ namespace StarGame
         public Slot InventorySlot { get; set; }
 
         public int Price { get; set; }
-        public abstract void Use();
+        public abstract void Remove();
         public abstract void Apply();
 
         public abstract Item Clone();

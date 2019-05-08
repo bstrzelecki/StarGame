@@ -16,7 +16,7 @@ namespace StarGame
         }
         public override void Apply()
         {
-            throw new NotImplementedException();
+            
         }
 
         public override Item Clone()
@@ -24,9 +24,9 @@ namespace StarGame
             return new Thruster();
         }
 
-        public override void Use()
+        public override void Remove()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

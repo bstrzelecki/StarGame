@@ -55,16 +55,14 @@ namespace StarGame
         {
             slot = new Sprite("slot");
             util = new Sprite("system");
-            //for(int i = 0; i < 72; i++)
-            //{
-            //    AddItem(new Thruster());
-            //}
+
             AddItem(new GenericItem(Slot.Armor, "plate", new Sprite("ar")));
             AddItem(new GenericItem(Slot.Generator, "reactor", new Sprite("g")));
             AddItem(new GenericItem(Slot.JumpDrive, "stdJumpDrive", new Sprite("jd")));
             AddItem(new GenericItem(Slot.Armor, "basic armor", new Sprite("blip")));
             AddItem(new GenericItem(Slot.Armor, "advanced armor", new Sprite("ar")));
             AddItem(new GenericItem(Slot.Armor, "crystal plate", new Sprite("ar")));
+
             for(int i = 0; i < 7; i++)
             {
                 Utilities[i] = new UtilitySlot((Slot)i, new Thruster());
@@ -79,40 +77,23 @@ namespace StarGame
         bool drawUICollisions = false;
         public void Draw(SpriteBatch sprite)
         {
-            int i = 0;
-            int j = 0;
-            foreach(Item item in Items)
-            {
-                sprite.Draw(slot,UIController.position +  slotsOffset + new Vector2((slot.Size.Width + 8) * i , (slot.Size.Height + 5) * j),Color.White);
-                sprite.Draw(item.Graphic, UIController.position + slotsOffset + new Vector2((slot.Size.Width + 8) * i, (slot.Size.Height + 5) * j) + new Vector2(6,6), Color.White);
-                i++;
-                if (i > slotCap)
-                {
-                    i = 0;
-                    j++;
-                }
-            }
-            i = 0;
-            foreach (UtilitySlot us in Utilities)
-            {
-                sprite.Draw(util, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i), Color.White);
-                sprite.Draw(us.item.Graphic, UIController.position + utilitiesOffset + new Vector2(0, (util.Size.Height * i)) + new Vector2(116,13), Color.White);
-                sprite.DrawString(Game1.fonts["font"], us.slot.ToString(), UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12,6), Color.Green);
-                sprite.DrawString(Game1.fonts["font"], us.item.Name, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12,26), Color.Green);
-                i++;
-            }
-            i = 0;
-            foreach(Resource res in MainScene.barArray.Resources)
-            {
-                sprite.DrawString(Game1.fonts["font"], res.ToString(), UIController.position + resourceOffset + new Vector2(0, 20 * i), Color.Green);
-                i++;
-            }
-            if(dragItem != null)
+            DrawItems(sprite);
+            DrawUtilities(sprite);
+            DrawRersourceStreings(sprite);
+            if (dragItem != null)
             {
                 sprite.Draw(slot, mouseRelativePosition + Input.GetMousePosition(), Color.White);
                 sprite.Draw(dragItem.Graphic, mouseRelativePosition + Input.GetMousePosition() + new Vector2(6, 6), Color.White);
             }
-            //sprite.Draw(new Sprite("WhitePixel"), inventorySpace, Color.Red);
+            if (hoverItem != null)
+            {
+                DrawTooltip(Input.GetMousePosition(), hoverItem, sprite);
+            }
+            DebugDraw(sprite);
+        }
+
+        private void DebugDraw(SpriteBatch sprite)
+        {
             if (drawUICollisions)
             {
                 foreach (UtilitySlot u in Utilities)
@@ -122,13 +103,50 @@ namespace StarGame
                 foreach (Rectangle rect in slotCollisions)
                 {
                     sprite.Draw(new Sprite("WhitePixel"), rect, Color.Red);
-                } 
-            }
-            if(hoverItem != null)
-            {
-                DrawTooltip(Input.GetMousePosition(), hoverItem, sprite);
+                }
             }
         }
+
+        private void DrawRersourceStreings(SpriteBatch sprite)
+        {
+            int i = 0;
+            foreach (Resource res in MainScene.barArray.Resources)
+            {
+                sprite.DrawString(Game1.fonts["font"], res.ToString(), UIController.position + resourceOffset + new Vector2(0, 20 * i), Color.Green);
+                i++;
+            }
+        }
+
+        private void DrawUtilities(SpriteBatch sprite)
+        {
+            int i = 0;
+            foreach (UtilitySlot us in Utilities)
+            {
+                sprite.Draw(util, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i), Color.White);
+                sprite.Draw(us.item.Graphic, UIController.position + utilitiesOffset + new Vector2(0, (util.Size.Height * i)) + new Vector2(116, 13), Color.White);
+                sprite.DrawString(Game1.fonts["font"], us.slot.ToString(), UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12, 6), Color.Green);
+                sprite.DrawString(Game1.fonts["font"], us.item.Name, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12, 26), Color.Green);
+                i++;
+            }
+        }
+
+        private void DrawItems(SpriteBatch sprite)
+        {
+            int i = 0;
+            int j = 0;
+            foreach (Item item in Items)
+            {
+                sprite.Draw(slot, UIController.position + slotsOffset + new Vector2((slot.Size.Width + 8) * i, (slot.Size.Height + 5) * j), Color.White);
+                sprite.Draw(item.Graphic, UIController.position + slotsOffset + new Vector2((slot.Size.Width + 8) * i, (slot.Size.Height + 5) * j) + new Vector2(6, 6), Color.White);
+                i++;
+                if (i > slotCap)
+                {
+                    i = 0;
+                    j++;
+                }
+            }
+        }
+
         Item hoverItem;
         public void DrawTooltip(Vector2 position, Item item, SpriteBatch sprite)
         {
@@ -191,26 +209,33 @@ namespace StarGame
                 {
                     AddItem(dragItem.Clone());
                 }
-                if (UtilityCollisions(out int i))
+                DropOnUtility();
+                dragItem = null;
+            }
+        }
+
+        private void DropOnUtility()
+        {
+            if (UtilityCollisions(out int i))
+            {
+                if (Utilities[i].slot == dragItem.InventorySlot)
                 {
-                    if (Utilities[i].slot == dragItem.InventorySlot)
+                    if (Utilities[i].item == null)
                     {
-                        if (Utilities[i].item == null)
-                        {
-                            Utilities[i].item = dragItem.Clone();
-                        }
-                        else
-                        {
-                            AddItem(Utilities[i].item.Clone());
-                            Utilities[i].item = dragItem.Clone();
-                        }
+                        Utilities[i].item = dragItem.Clone();
                     }
                     else
                     {
-                        AddItem(dragItem.Clone());
+                        AddItem(Utilities[i].item.Clone());
+                        Utilities[i].item.Remove();
+                        Utilities[i].item = dragItem.Clone();
                     }
+                    dragItem.Apply();
                 }
-                dragItem = null;
+                else
+                {
+                    AddItem(dragItem.Clone());
+                }
             }
         }
 
