@@ -11,12 +11,22 @@ namespace StarGame
         public Thruster()
         {
             Graphic = new Sprite("th");
-            Name = "thruster";
+            Name = "Thruster";
+            Description = "Slightly improves yout speed";
+            InventorySlot = Slot.Thruster;
+        }
+        float diff;
+        public Thruster(string name, float change)
+        {
+            diff = change;
+            Graphic = new Sprite("th");
+            Name = name;
+            Description = "Slightly improves yout speed";
             InventorySlot = Slot.Thruster;
         }
         public override void Apply()
         {
-            
+            MainScene.player.speed = diff == 0 ? 1.6f : diff;
         }
 
         public override Item Clone()
@@ -26,7 +36,7 @@ namespace StarGame
 
         public override void Remove()
         {
-            
+            MainScene.player.speed = 1.2f;
         }
     }
 }

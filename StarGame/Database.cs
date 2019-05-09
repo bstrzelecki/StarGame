@@ -30,7 +30,7 @@ namespace StarGame
         }
         public void Init()
         {
-
+            AddItem("thruster", new Thruster());
         }
     }
 }
