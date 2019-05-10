@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Database.cs" />
+    <Compile Include="EnemyStation.cs" />
     <Compile Include="Inventory\Items\GenericItem.cs" />
     <Compile Include="Inventory\Inventory.cs" />
     <Compile Include="Inventory\Item.cs" />
@@ -58,7 +59,6 @@
     <Compile Include="MainBehaviour\Physics.cs" />
     <Compile Include="Inventory\Items\Thruster.cs" />
     <Compile Include="Inventory\UtilitySlot.cs" />
-    <Compile Include="Weapon.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />
