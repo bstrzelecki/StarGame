@@ -37,7 +37,7 @@ namespace StarGame
             Time.OnTick += Time_OnTick;
 
             Projectile proj = new Projectile(new Sprite("plasma"));
-            Weapon wep = new Weapon(proj);
+            Weapon wep = new Blaster(proj);
 
             rmb = wep;
 
@@ -146,7 +146,7 @@ namespace StarGame
         {
             if (rmb != null && Input.IsMouseKeyDown(2))
             {
-                rmb.SpawnProjectile();
+                rmb.SpawnProjectile(position,Rotation,physics.velocity);
             }
         }
     }

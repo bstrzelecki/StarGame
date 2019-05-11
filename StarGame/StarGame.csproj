@@ -42,11 +42,14 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Inventory\Weapons\Blaster.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="EnemyStation.cs" />
     <Compile Include="Inventory\Items\GenericItem.cs" />
     <Compile Include="Inventory\Inventory.cs" />
     <Compile Include="Inventory\Item.cs" />
+    <Compile Include="LaserBeam.cs" />
+    <Compile Include="PlasmaBlaster.cs" />
     <Compile Include="Player\BarArray.cs" />
     <Compile Include="Debbuger.cs" />
     <Compile Include="Game1.cs" />

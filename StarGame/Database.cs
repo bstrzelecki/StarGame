@@ -11,6 +11,8 @@ namespace StarGame
     {
         public static Dictionary<string, Item> Items { get; protected set; } = new Dictionary<string, Item>();
 
+        public static Item EmptyItem { get; } = new GenericItem(Slot.Armor, "Empty Item", new Sprite("blip"));
+
         public Item GetItem(string name)
         {
             if (Items.ContainsKey(name))
@@ -31,6 +33,7 @@ namespace StarGame
         public void Init()
         {
             AddItem("thruster", new Thruster());
+            AddItem("blaster", new PlasmaBlaster());
         }
     }
 }

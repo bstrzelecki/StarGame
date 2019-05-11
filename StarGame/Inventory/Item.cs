@@ -12,6 +12,7 @@ namespace StarGame
         public Sprite Graphic { get; set; }
         public string Name { get; set; }
 
+        public int HitPoints { get; set; } = 100;
         public int NameLenght
         {
             get

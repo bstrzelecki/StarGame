@@ -65,10 +65,20 @@ namespace StarGame
 
             for(int i = 0; i < 7; i++)
             {
-                Utilities[i] = new UtilitySlot((Slot)i, new Thruster());
+                Utilities[i] = new UtilitySlot((Slot)i, Database.EmptyItem);
                 Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i));
             }
-            
+            Utilities[0].item = new GenericItem(Slot.Thruster, "Thruster", new Sprite("th"));
+            Utilities[1].item = new GenericItem(Slot.JumpDrive, "stdJumpDrive", new Sprite("jd"));
+            Utilities[2].item = new PlasmaBlaster();
+            Utilities[3].item = new GenericItem(Slot.Generator, "Reactor", new Sprite("g"));
+            Utilities[4].item = new GenericItem(Slot.Radar, "Simple Radar", new Sprite("r"));
+            Utilities[5].item = new GenericItem(Slot.Tank, "100 Tank", new Sprite("t"));
+            Utilities[6].item = new GenericItem(Slot.Armor, "basic armor", new Sprite("ar"));
+            for (int i = 0; i < 7; i++)
+            {
+                Utilities[i].item.Apply();
+            }
         }
         private Vector2 slotsOffset = new Vector2(230, 86);
         private Vector2 utilitiesOffset = new Vector2(20, 80);
@@ -126,6 +136,7 @@ namespace StarGame
                 sprite.Draw(us.item.Graphic, UIController.position + utilitiesOffset + new Vector2(0, (util.Size.Height * i)) + new Vector2(116, 13), Color.White);
                 sprite.DrawString(Game1.fonts["font"], us.slot.ToString(), UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12, 6), Color.Green);
                 sprite.DrawString(Game1.fonts["font"], us.item.Name, UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12, 26), Color.Green);
+                sprite.DrawString(Game1.fonts["font"], us.item.HitPoints.ToString(), UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i) + new Vector2(12, 50), Color.Green);
                 i++;
             }
         }
@@ -150,8 +161,8 @@ namespace StarGame
         Item hoverItem;
         public void DrawTooltip(Vector2 position, Item item, SpriteBatch sprite)
         {
-            Rectangle size = new Rectangle(position.ToPoint() + new Vector2(8,8).ToPoint(), new Point((int)Math.Max(item.NameLenght,item.DescriptionSize.X),(int)item.DescriptionSize.Y + 16));
-            sprite.Draw(new Sprite(), new Rectangle(position.ToPoint(), new Point((int)Math.Max(item.NameLenght, item.DescriptionSize.X) + 16, (int)item.DescriptionSize.Y + 32)), Color.Green);
+            Rectangle size = new Rectangle(position.ToPoint() + new Vector2(8,8).ToPoint(), new Point((int)Math.Max(item.NameLenght + 8,item.DescriptionSize.X + 8),(int)item.DescriptionSize.Y + 16));
+            sprite.Draw(new Sprite(), new Rectangle(position.ToPoint(), new Point((int)Math.Max(item.NameLenght, item.DescriptionSize.X) + 24, (int)item.DescriptionSize.Y + 32)), Color.Green);
             sprite.Draw(new Sprite(), size, Color.Black);
 
             sprite.DrawString(Game1.fonts["font"], item.Name, position + new Vector2(12, 8), Color.Green);
