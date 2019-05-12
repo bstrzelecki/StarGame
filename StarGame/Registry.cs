@@ -27,6 +27,7 @@ namespace StarGame
 
         internal static void Init()
         {
+            Database.Init();
             scene.Init();
             time.Init();
         }

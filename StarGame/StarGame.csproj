@@ -42,15 +42,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="HomingMissle.cs" />
     <Compile Include="Inventory\Weapons\Blaster.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="EnemyStation.cs" />
     <Compile Include="Inventory\Items\GenericItem.cs" />
     <Compile Include="Inventory\Inventory.cs" />
     <Compile Include="Inventory\Item.cs" />
-    <Compile Include="LaserBeam.cs" />
+    <Compile Include="Inventory\Weapons\LaserBeam.cs" />
+    <Compile Include="ITargetable.cs" />
     <Compile Include="PlasmaBlaster.cs" />
-    <Compile Include="Player\BarArray.cs" />
+    <Compile Include="MainBehaviour\BarArray.cs" />
     <Compile Include="Debbuger.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Input.cs" />
@@ -62,24 +64,26 @@
     <Compile Include="MainBehaviour\Physics.cs" />
     <Compile Include="Inventory\Items\Thruster.cs" />
     <Compile Include="Inventory\UtilitySlot.cs" />
+    <Compile Include="Inventory\Items\WeaponItem.cs" />
+    <Compile Include="RocketLauncher.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Player\Projectile.cs" />
+    <Compile Include="MainBehaviour\Player\Projectile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Player\Radar.cs" />
+    <Compile Include="MainBehaviour\Player\Radar.cs" />
     <Compile Include="WorldMap\RandomSpaceGenerator.cs" />
     <Compile Include="Registry.cs" />
-    <Compile Include="Player\Resource.cs" />
-    <Compile Include="Player\SimulationProxy.cs" />
-    <Compile Include="Player\SpeedOMeter.cs" />
+    <Compile Include="MainBehaviour\Player\Resource.cs" />
+    <Compile Include="MainBehaviour\Player\SimulationProxy.cs" />
+    <Compile Include="MainBehaviour\Player\SpeedOMeter.cs" />
     <Compile Include="MainBehaviour\Sprite.cs" />
     <Compile Include="MainBehaviour\StarMap.cs" />
     <Compile Include="WorldMap\StarSystem.cs" />
     <Compile Include="WorldMap\Tile.cs" />
     <Compile Include="MainBehaviour\Time.cs" />
     <Compile Include="MainBehaviour\UIController.cs" />
-    <Compile Include="Player\Weapon.cs" />
+    <Compile Include="MainBehaviour\Player\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

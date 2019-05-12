@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace StarGame
 {
-    class Player : IDrawable, ICloneable, IUpdateable
+    internal class Player : IDrawable, ICloneable, IUpdateable, ITargetable
     {
         public Sprite sprite;
         public Vector2 screenPosition;
@@ -24,11 +19,7 @@ namespace StarGame
         public float speed = 1.2f;
 
         public Weapon rmb;
-        public Weapon lmb;
-        public Weapon mmb;
-
-
-        bool useGravity = true;
+        private bool useGravity = true;
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
@@ -46,9 +37,9 @@ namespace StarGame
 
         private void Debbuger_OnCmd(CommandCompund cmd)
         {
-            if(cmd.Check("player"))
+            if (cmd.Check("player"))
             {
-                if(cmd == "usegravity")
+                if (cmd == "usegravity")
                 {
                     useGravity = cmd.GetBool(0);
                 }
@@ -64,7 +55,11 @@ namespace StarGame
             position += physics.velocity;
             Rotation += physics.GetDeltaRotation();
             HandleUserInput();
-            if(useGravity)ApplyGravity(MainScene.sun);
+            if (useGravity)
+            {
+                ApplyGravity(MainScene.sun);
+            }
+
             RenewPower();
         }
 
@@ -107,8 +102,10 @@ namespace StarGame
                 else if (MainScene.barArray.GetResource("power") != 100)
                 {
                     float temp = 100 - MainScene.barArray.GetResource("power");
-                    if(temp <= resupply)
+                    if (temp <= resupply)
+                    {
                         MainScene.barArray.AddResource("power", temp);
+                    }
                 }
             }
         }
@@ -119,7 +116,7 @@ namespace StarGame
             float force = Physics.G * (mass * system.StarMass) / (float)Math.Pow(Vector2.Distance(position, system.position), 2);
             physics.acceleration += force * (-position + system.position);
 
-            foreach(Planet planet in system.planets)
+            foreach (Planet planet in system.planets)
             {
                 force = Physics.G * (mass * planet.Mass) / (float)Math.Pow(Vector2.Distance(position, Physics.GetForwardVector(planet.Period) * planet.distance + system.position), 2);
                 physics.acceleration += force * (-position + Physics.GetForwardVector(planet.Period) * planet.distance + system.position);
@@ -129,16 +126,21 @@ namespace StarGame
         public void Draw(SpriteBatch sprite)
         {
             if (rmb != null)
+            {
                 rmb.DrawProjectile(sprite);
-            sprite.Draw(this.sprite, screenPosition, null, Color.White, _rotation, new Vector2(collider.Width / 2, collider.Height / 2), Vector2.One,SpriteEffects.None,0);
+            }
+
+            sprite.Draw(this.sprite, screenPosition, null, Color.White, _rotation, new Vector2(collider.Width / 2, collider.Height / 2), Vector2.One, SpriteEffects.None, 0);
         }
 
 
         public object Clone()
         {
-            Player p = new Player();
-            p.physics = (Physics)physics.Clone();
-            p.position = position;
+            Player p = new Player
+            {
+                physics = (Physics)physics.Clone(),
+                position = position
+            };
             return p;
         }
 
@@ -146,8 +148,13 @@ namespace StarGame
         {
             if (rmb != null && Input.IsMouseKeyDown(2))
             {
-                rmb.SpawnProjectile(position,Rotation,physics.velocity);
+                rmb.SpawnProjectile(position, Rotation, physics.velocity);
             }
+        }
+
+        public Vector2 GetPosition()
+        {
+            return position;
         }
     }
 }

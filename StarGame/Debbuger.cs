@@ -1,19 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Debbuger
+    internal class Debbuger
     {
         [DllImport("kernel32")]
-        static extern bool AllocConsole();
-        public delegate void Command(CommandCompund cmd); 
+        private static extern bool AllocConsole();
+        public delegate void Command(CommandCompund cmd);
         public static event Command OnCmd;
         private static List<string> cmds = new List<string>();
         public static void OpenConsole()
@@ -30,7 +27,7 @@ namespace StarGame
         }
         public static void ExecuteCommands()
         {
-            foreach(string cmd in cmds)
+            foreach (string cmd in cmds)
             {
                 string[] rg = cmd.Split('.');
                 string[] arg = rg[1].Split(' ');
@@ -47,7 +44,8 @@ namespace StarGame
             cmds.Clear();
         }
     }
-    class CommandCompund
+
+    internal class CommandCompund
     {
         public string Target { get; set; }
         public string Source { get; set; }
@@ -70,11 +68,12 @@ namespace StarGame
         public int GetInt(int i)
         {
             int temp;
-            if(int.TryParse(Values[i],out temp))
+            if (int.TryParse(Values[i], out temp))
             {
                 return temp;
             }
-            else{
+            else
+            {
                 Debug.WriteLine("Cont convert value to int !!!!");
             }
             return 0;

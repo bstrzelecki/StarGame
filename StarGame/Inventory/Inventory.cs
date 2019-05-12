@@ -62,15 +62,18 @@ namespace StarGame
             AddItem(new GenericItem(Slot.Armor, "basic armor", new Sprite("blip")));
             AddItem(new GenericItem(Slot.Armor, "advanced armor", new Sprite("ar")));
             AddItem(new GenericItem(Slot.Armor, "crystal plate", new Sprite("ar")));
+            AddItem(Database.GetItem("laser"));
+            AddItem(Database.GetItem("missle"));
 
-            for(int i = 0; i < 7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 Utilities[i] = new UtilitySlot((Slot)i, Database.EmptyItem);
                 Utilities[i].ApplyCollisions(UIController.position + utilitiesOffset + new Vector2(0, util.Size.Height * i));
             }
             Utilities[0].item = new GenericItem(Slot.Thruster, "Thruster", new Sprite("th"));
             Utilities[1].item = new GenericItem(Slot.JumpDrive, "stdJumpDrive", new Sprite("jd"));
-            Utilities[2].item = new PlasmaBlaster();
+            //Utilities[2].item = new PlasmaBlaster();
+            Utilities[2].item = Database.GetItem("missle");
             Utilities[3].item = new GenericItem(Slot.Generator, "Reactor", new Sprite("g"));
             Utilities[4].item = new GenericItem(Slot.Radar, "Simple Radar", new Sprite("r"));
             Utilities[5].item = new GenericItem(Slot.Tank, "100 Tank", new Sprite("t"));

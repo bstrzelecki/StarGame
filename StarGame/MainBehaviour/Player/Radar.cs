@@ -12,7 +12,6 @@ namespace StarGame
     {
         public Sprite sprite;
         public Vector2 position;
-        private Vector2 center;
         public List<Blip> blips = new List<Blip>();
         public float scale = 1000;
         public void AddBlip(Vector2 player, Vector2 blip)
