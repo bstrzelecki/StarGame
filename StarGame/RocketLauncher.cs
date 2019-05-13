@@ -23,7 +23,7 @@ namespace StarGame
             HomingMissle p = ((HomingMissle)projectile).Clone(target??MainScene.player);
             p.Position = position + Physics.GetForwardVector(rotation) * 30;
             p.physics.velocity = velocity;
-            p.Rotation = Input.GetRads(rotation) + (float)Math.PI / 2;
+            //p.Rotation = Input.GetRads(rotation) + (float)Math.PI / 2;
             Projectiles.Add(p);
             Cooldown = 0;
             MainScene.barArray.SubtractResource("power", 5);

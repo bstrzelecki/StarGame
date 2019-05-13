@@ -24,7 +24,7 @@ namespace StarGame
             return new Projectile(Sprite);
         }
 
-        public void Draw(SpriteBatch sprite)
+        public virtual void Draw(SpriteBatch sprite)
         {
             if (Decay < 0) Dispose();
             if(!IsDisposed)
