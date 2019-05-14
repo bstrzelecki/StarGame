@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StarGame
 {
-    class MainScene : IDrawable, IUpdateable
+    internal class MainScene : IDrawable, IUpdateable
     {
         public static Player player;
         public static StarSystem sun;
@@ -118,7 +113,11 @@ namespace StarGame
             {
                 for (int y = (int)playerInBackground.Y - backgroundHeight - 1; y < backgroundHeight + (int)playerInBackground.Y + 1; y++)
                 {
-                    if ((from n in background where n.position == new Vector2(x, y) select n).Count() > 0) continue;
+                    if ((from n in background where n.position == new Vector2(x, y) select n).Count() > 0)
+                    {
+                        continue;
+                    }
+
                     background.Add(new Tile(new Vector2(x, y)));
                 }
             }
@@ -142,10 +141,10 @@ namespace StarGame
             sun.position = new Vector2(6000, 6000);
 
             tile = Game1.textures["tile"];
-            radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width-250, Game1.graphics.GraphicsDevice.Viewport.Height-250));
+            radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width - 250, Game1.graphics.GraphicsDevice.Viewport.Height - 250));
             proxy = new SimulationProxy();
             meter = new SpeedOMeter();
-            barArray = new BarArray(new Resource("fuel", Color.Green),new Resource("oxygen",Color.Blue),new Resource("power",Color.Yellow),new Resource("hull", Color.Red));
+            barArray = new BarArray(new Resource("fuel", Color.Green), new Resource("oxygen", Color.Blue), new Resource("power", Color.Yellow), new Resource("hull", Color.Red));
             ui = new UIController();
             inventory = new Inventory();
             StarMap.GenerateStars(150);

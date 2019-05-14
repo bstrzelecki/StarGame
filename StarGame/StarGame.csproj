@@ -66,6 +66,7 @@
     <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="Inventory\Items\WeaponItem.cs" />
     <Compile Include="RocketLauncher.cs" />
+    <Compile Include="Vendor.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />
