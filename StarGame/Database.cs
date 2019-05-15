@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace StarGame
@@ -20,6 +21,21 @@ namespace StarGame
                 Debug.WriteLine("Item does not exist");
             }
             return new GenericItem(Slot.Armor, "Empty Item", new Sprite("blip"));
+        }
+        public static List<Item> GetRandomItems(int amount)
+        {
+            Random rng = new Random();
+            List<Item> i = new List<Item>();
+            do
+            {
+                foreach (string key in Items.Keys)
+                {
+                    if (i.Count > amount) break;
+                    if (rng.Next(15) == 1)
+                        i.Add(Items[key]);
+                }
+            } while (i.Count > amount);
+            return i;
         }
         protected static void AddItem(string key, Item item)
         {
