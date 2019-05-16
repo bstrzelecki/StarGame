@@ -14,6 +14,7 @@ namespace StarGame
         public Vendor()
         {
             ScrapPrice = new Random().Next(10, 15);
+            Items = Database.GetRandomItems(5);
         }
     }
 }

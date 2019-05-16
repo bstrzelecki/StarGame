@@ -18,6 +18,7 @@ namespace StarGame
         {
             guis.Add(DisplayedUI.StarMap, new Sprite("mapview"));
             guis.Add(DisplayedUI.Inventory, new Sprite("inventory"));
+            guis.Add(DisplayedUI.Trade, new Sprite("trade"));
             position = new Vector2((Game1.graphics.PreferredBackBufferWidth - guis[DisplayedUI.Inventory].Size.Width) / 2, (Game1.graphics.PreferredBackBufferHeight - guis[DisplayedUI.Inventory].Size.Height) / 2);
 
         }
@@ -52,7 +53,15 @@ namespace StarGame
                 case DisplayedUI.Inventory:
                     DrawInventory(sprite);
                     break;
+                case DisplayedUI.Trade:
+                    DrawTrade(sprite);
+                    break;
             }
+        }
+
+        private void DrawTrade(SpriteBatch sprite)
+        {
+            sprite.Draw(guis[DisplayedUI.Trade], position, Color.White);
         }
 
         private void DrawInventory(SpriteBatch sprite)
@@ -77,6 +86,8 @@ namespace StarGame
         None,
         StarMap,
         Inventory,
+        Trade,
         QuestLog
+
     }
 }

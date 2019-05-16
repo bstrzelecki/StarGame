@@ -51,7 +51,7 @@
     <Compile Include="Inventory\Item.cs" />
     <Compile Include="Inventory\Weapons\LaserBeam.cs" />
     <Compile Include="ITargetable.cs" />
-    <Compile Include="PlasmaBlaster.cs" />
+    <Compile Include="Inventory\Weapons\PlasmaBlaster.cs" />
     <Compile Include="MainBehaviour\BarArray.cs" />
     <Compile Include="Debbuger.cs" />
     <Compile Include="Game1.cs" />
@@ -65,7 +65,8 @@
     <Compile Include="Inventory\Items\Thruster.cs" />
     <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="Inventory\Items\WeaponItem.cs" />
-    <Compile Include="RocketLauncher.cs" />
+    <Compile Include="Inventory\Weapons\RocketLauncher.cs" />
+    <Compile Include="TradeUI.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />

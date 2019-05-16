@@ -18,6 +18,9 @@ namespace StarGame
         public static BarArray barArray;
         public static UIController ui;
         public static Inventory inventory;
+
+        public static int Cash = 150;
+        public static Vendor TradeShip;
         public void Draw(SpriteBatch sprite)
         {
             foreach (Tile tile in background)
@@ -69,6 +72,10 @@ namespace StarGame
             if (Input.IsKeyDown(Keys.I))
             {
                 ui.SetView(DisplayedUI.Inventory);
+            }
+            if (Input.IsKeyDown(Keys.K))
+            {
+                ui.SetView(DisplayedUI.Trade);
             }
             if (Input.IsKeyDown(Keys.N))
             {
@@ -149,6 +156,8 @@ namespace StarGame
             inventory = new Inventory();
             StarMap.GenerateStars(150);
             StarMap.Init();
+
+            TradeShip = new Vendor();
         }
     }
 }

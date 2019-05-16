@@ -128,6 +128,7 @@ namespace StarGame
                 sprite.DrawString(Game1.fonts["font"], res.ToString(), UIController.position + resourceOffset + new Vector2(0, 20 * i), Color.Green);
                 i++;
             }
+            sprite.DrawString(Game1.fonts["font"], MainScene.Cash.ToString(), UIController.position + new Vector2(960,80), Color.Green);
         }
 
         private void DrawUtilities(SpriteBatch sprite)
