@@ -34,7 +34,7 @@ namespace StarGame
                     if (rng.Next(15) == 1)
                         i.Add(Items[key]);
                 }
-            } while (i.Count > amount);
+            } while (i.Count < amount);
             return i;
         }
         protected static void AddItem(string key, Item item)

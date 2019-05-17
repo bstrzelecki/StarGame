@@ -14,6 +14,8 @@ namespace StarGame
         public Dictionary<DisplayedUI, Sprite> guis = new Dictionary<DisplayedUI, Sprite>();
         public static Vector2 position = new Vector2(30, 30);
         StarMap sm;
+        TradeUI trade;
+
         public UIController()
         {
             guis.Add(DisplayedUI.StarMap, new Sprite("mapview"));
@@ -62,6 +64,11 @@ namespace StarGame
         private void DrawTrade(SpriteBatch sprite)
         {
             sprite.Draw(guis[DisplayedUI.Trade], position, Color.White);
+            if(trade == null)
+            {
+                trade = new TradeUI();
+            }
+            trade.Draw(sprite);
         }
 
         private void DrawInventory(SpriteBatch sprite)

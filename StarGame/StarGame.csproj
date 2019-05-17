@@ -42,6 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DragnDrop.cs" />
     <Compile Include="HomingMissle.cs" />
     <Compile Include="Inventory\Weapons\Blaster.cs" />
     <Compile Include="Database.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="Inventory\Items\WeaponItem.cs" />
     <Compile Include="Inventory\Weapons\RocketLauncher.cs" />
+    <Compile Include="Tooltip.cs" />
     <Compile Include="TradeUI.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="WorldMap\Planet.cs" />

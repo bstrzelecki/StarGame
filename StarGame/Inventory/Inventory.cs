@@ -15,7 +15,7 @@ namespace StarGame
         public Sprite slot;
         public Sprite util;
 
-        private Rectangle[] slotCollisions = new Rectangle[72];
+        public  Rectangle[] slotCollisions = new Rectangle[72];
         public int InventorySize { get; set; } = 72;
 
         public bool AddItem(Item item)
@@ -55,7 +55,7 @@ namespace StarGame
         {
             slot = new Sprite("slot");
             util = new Sprite("system");
-
+            inventorySpace = new Rectangle(UIController.position.ToPoint() + slotsOffset.ToPoint(), new Point(slotCap * (slot.Size.Width + 16), InventorySize / slotCap * (slot.Size.Height - 2)));
             AddItem(new GenericItem(Slot.Armor, "plate", new Sprite("ar")));
             AddItem(new GenericItem(Slot.Generator, "reactor", new Sprite("g")));
             AddItem(new GenericItem(Slot.JumpDrive, "stdJumpDrive", new Sprite("jd")));
@@ -83,7 +83,7 @@ namespace StarGame
                 Utilities[i].item.Apply();
             }
         }
-        private Vector2 slotsOffset = new Vector2(230, 86);
+        public Vector2 slotsOffset = new Vector2(230, 86);
         private Vector2 utilitiesOffset = new Vector2(20, 80);
         private Vector2 resourceOffset = new Vector2(870, 150);
         private int slotCap = 8;
@@ -100,7 +100,7 @@ namespace StarGame
             }
             if (hoverItem != null)
             {
-                DrawTooltip(Input.GetMousePosition(), hoverItem, sprite);
+                Tooltip.Draw(Input.GetMousePosition(), hoverItem, sprite);
             }
             DebugDraw(sprite);
         }
@@ -163,16 +163,7 @@ namespace StarGame
         }
 
         Item hoverItem;
-        public void DrawTooltip(Vector2 position, Item item, SpriteBatch sprite)
-        {
-            Rectangle size = new Rectangle(position.ToPoint() + new Vector2(8,8).ToPoint(), new Point((int)Math.Max(item.NameLenght + 8,item.DescriptionSize.X + 8),(int)item.DescriptionSize.Y + 16));
-            sprite.Draw(new Sprite(), new Rectangle(position.ToPoint(), new Point((int)Math.Max(item.NameLenght, item.DescriptionSize.X) + 24, (int)item.DescriptionSize.Y + 32)), Color.Green);
-            sprite.Draw(new Sprite(), size, Color.Black);
 
-            sprite.DrawString(Game1.fonts["font"], item.Name, position + new Vector2(12, 8), Color.Green);
-            sprite.DrawString(Game1.fonts["font"], item.Description, position + new Vector2(12, 24), Color.Green);
-
-        }
         bool isDragging = false;
         bool firstClick = true;
         Item dragItem;
@@ -181,7 +172,7 @@ namespace StarGame
         public void Update()
         {
             if (MainScene.ui.UI != DisplayedUI.Inventory) return;
-            inventorySpace = new Rectangle(UIController.position.ToPoint() + slotsOffset.ToPoint(), new Point(slotCap * (slot.Size.Width + 16), InventorySize / slotCap * (slot.Size.Height - 2)));
+            
             if (!isDragging && CheckCollisions(out Rectangle rect))
             {
                 int i = slotCollisions.ToList().IndexOf(rect);
