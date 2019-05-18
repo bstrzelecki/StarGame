@@ -14,6 +14,7 @@ namespace StarGame
         private Vector2 vendorOffset = new Vector2(680, 90);
         private Rectangle inventorySpace;
         private Rectangle[] slotCollisions = new Rectangle[72];
+        private List<Rectangle> vendorCollisions = new List<Rectangle>();
         public TradeUI()
         {
             Sprite slot = MainScene.inventory.slot;
@@ -26,7 +27,18 @@ namespace StarGame
                 slotCollisions[i] = n;
                 i++;
             }
-            
+            int o = 0;
+            int c = 0;
+            foreach(Item it in MainScene.TradeShip.Items)
+            {
+                vendorCollisions.Add(new Rectangle((UIController.position + vendorOffset + new Vector2((slot.Size.Width + 8) * o, (slot.Size.Height + 5) * c)).ToPoint(), new Point(slot.Size.Width, slot.Size.Height)));
+                o++;
+                if(o > 1)
+                {
+                    o = 0;
+                    c++;
+                }
+            }
         }
 
         bool drawDebug = true;
@@ -52,14 +64,55 @@ namespace StarGame
             {
                 foreach(var s in slotCollisions)
                 {
-                    sprite.Draw(new Sprite(), s, Color.Red);
+                    //sprite.Draw(new Sprite(), s, Color.Red);
                 }
+                foreach (var s in vendorCollisions)
+                {
+                    //sprite.Draw(new Sprite(), s, Color.Red);
+                }
+                //sprite.Draw(new Sprite(), inventorySpace, Color.Red);
             }
         }
-
+        Item dragItem;
+        bool isDraggingVendorItem = false;
         public void Update()
         {
-            throw new NotImplementedException();
+            if (MainScene.ui.UI != DisplayedUI.Trade) return;
+            if(dragItem == null)
+            {
+                if (Input.IsMouseKeyDown(0))
+                {
+                    foreach (Rectangle rect in vendorCollisions)
+                    {
+                        if (rect.Contains(Input.GetMousePosition()))
+                        {
+                            dragItem = MainScene.TradeShip.Items[vendorCollisions.IndexOf(rect)].Clone();
+                            MainScene.TradeShip.Items.RemoveAt(vendorCollisions.IndexOf(rect));
+                            isDraggingVendorItem = true;
+                        }
+                    }
+                    foreach (Rectangle rect in slotCollisions)
+                    {
+                        if (rect.Contains(Input.GetMousePosition()))
+                        {
+                            dragItem = MainScene.inventory.Items[slotCollisions.ToList().IndexOf(rect)].Clone();
+                            MainScene.inventory.Items.RemoveAt(slotCollisions.ToList().IndexOf(rect));
+                            isDraggingVendorItem = false;
+                        }
+                    } 
+                }
+            }
+            else
+            {
+                if (isDraggingVendorItem)
+                {
+                    if(Input.IsMouseKeyUp(0))
+                }
+                else
+                {
+
+                }
+            }
         }
 
         private void DrawVendorItems(SpriteBatch sprite, Sprite slot)
