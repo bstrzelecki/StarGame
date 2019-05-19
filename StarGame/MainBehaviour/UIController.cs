@@ -86,6 +86,7 @@ namespace StarGame
         public void Update()
         {
             if (sm != null) sm.Update();
+            if (trade != null) trade.Update();
         }
     }
     public enum DisplayedUI
