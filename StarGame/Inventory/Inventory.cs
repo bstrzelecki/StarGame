@@ -92,7 +92,7 @@ namespace StarGame
         {
             DrawItems(sprite);
             DrawUtilities(sprite);
-            DrawRersourceStreings(sprite);
+            DrawResourceStrings(sprite);
             if (dragItem != null)
             {
                 sprite.Draw(slot, mouseRelativePosition + Input.GetMousePosition(), Color.White);
@@ -120,7 +120,7 @@ namespace StarGame
             }
         }
 
-        private void DrawRersourceStreings(SpriteBatch sprite)
+        private void DrawResourceStrings(SpriteBatch sprite)
         {
             int i = 0;
             foreach (Resource res in MainScene.barArray.Resources)

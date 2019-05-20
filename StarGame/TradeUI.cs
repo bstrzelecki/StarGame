@@ -79,6 +79,9 @@ namespace StarGame
                 sprite.Draw(slot, mouseRelativePosition + Input.GetMousePosition(), Color.White);
                 sprite.Draw(dragItem.Graphic, mouseRelativePosition + Input.GetMousePosition() + new Vector2(6, 6), Color.White);
             }
+            sprite.DrawString(Game1.fonts["font"], MainScene.Cash.ToString(), UIController.position + new Vector2(960, 80), Color.Green);
+            sprite.DrawString(Game1.fonts["font"], MainScene.TradeShip.ScrapPrice.ToString(), UIController.position + new Vector2(960, 240), Color.Green);
+
             if (drawDebug)
             {
                 foreach(var s in slotCollisions)
