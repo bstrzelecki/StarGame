@@ -17,7 +17,7 @@ namespace StarGame
         public Physics physics = new Physics();
         public float mass = 10;
         public float speed = 1.2f;
-
+        public int armor = 10;
         public Weapon rmb;
         private bool useGravity = true;
         public Player()

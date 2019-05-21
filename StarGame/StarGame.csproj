@@ -67,6 +67,7 @@
     <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="Inventory\Items\WeaponItem.cs" />
     <Compile Include="Inventory\Weapons\RocketLauncher.cs" />
+    <Compile Include="SimpleArmor.cs" />
     <Compile Include="Tooltip.cs" />
     <Compile Include="TradeUI.cs" />
     <Compile Include="Vendor.cs" />
