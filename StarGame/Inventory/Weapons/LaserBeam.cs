@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace StarGame
 {
-    class LaserBeam : Weapon
+    internal class LaserBeam : Weapon
     {
         public LaserBeam(Projectile projectile) : base(projectile)
         {

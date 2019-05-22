@@ -1,22 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Time : IUpdateable
+    internal class Time : IUpdateable
     {
         public static int DeltaTime { get; private set; }
-        static int start;
+
+        private static int start;
         public static event Action OnTick;
         private int tickCounter;
         private const int tickTime = 30;
         public static bool IsStopped { get; set; }
         public void Update()
         {
-            if (IsStopped) return;
+            if (IsStopped)
+            {
+                return;
+            }
+
             DeltaTime = (int)DateTime.Now.Millisecond - start;
             DeltaTime = DeltaTime > 0 ? DeltaTime : 0;
             start = DateTime.Now.Millisecond;

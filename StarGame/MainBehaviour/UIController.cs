@@ -1,20 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class UIController : IDrawable, IUpdateable
+    internal class UIController : IDrawable, IUpdateable
     {
         public DisplayedUI UI { get; set; }
         public Dictionary<DisplayedUI, Sprite> guis = new Dictionary<DisplayedUI, Sprite>();
         public static Vector2 position = new Vector2(30, 30);
-        StarMap sm;
-        TradeUI trade;
+        private StarMap sm;
+        private TradeUI trade;
 
         public UIController()
         {
@@ -27,7 +23,11 @@ namespace StarGame
         public void SetView(DisplayedUI ui)
         {
             UI = ui;
-            if (ui == DisplayedUI.None) return;
+            if (ui == DisplayedUI.None)
+            {
+                return;
+            }
+
             position = new Vector2((Game1.graphics.PreferredBackBufferWidth - guis[UI].Size.Width) / 2, (Game1.graphics.PreferredBackBufferHeight - guis[UI].Size.Height) / 2);
             if (UI == DisplayedUI.StarMap)
             {
@@ -49,7 +49,7 @@ namespace StarGame
             {
                 case DisplayedUI.None:
                     return;
-                case DisplayedUI.StarMap:        
+                case DisplayedUI.StarMap:
                     DrawStarMap(sprite);
                     break;
                 case DisplayedUI.Inventory:
@@ -64,7 +64,7 @@ namespace StarGame
         private void DrawTrade(SpriteBatch sprite)
         {
             sprite.Draw(guis[DisplayedUI.Trade], position, Color.White);
-            if(trade == null)
+            if (trade == null)
             {
                 trade = new TradeUI();
             }
@@ -85,8 +85,15 @@ namespace StarGame
 
         public void Update()
         {
-            if (sm != null) sm.Update();
-            if (trade != null) trade.Update();
+            if (sm != null)
+            {
+                sm.Update();
+            }
+
+            if (trade != null)
+            {
+                trade.Update();
+            }
         }
     }
     public enum DisplayedUI

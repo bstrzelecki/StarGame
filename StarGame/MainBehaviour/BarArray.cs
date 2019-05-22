@@ -1,20 +1,17 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace StarGame
 {
-    class BarArray:IDrawable
+    internal class BarArray : IDrawable
     {
         public Sprite BarStage { get; set; } = new Sprite("bar");
         public List<Resource> Resources { get; set; } = new List<Resource>();
         public BarArray(params Resource[] res)
         {
-            foreach(Resource r in res)
+            foreach (Resource r in res)
             {
                 Resources.Add(r);
             }
@@ -29,15 +26,15 @@ namespace StarGame
             }
         }
 
-        public Vector2 position = new Vector2(4,125);
+        public Vector2 position = new Vector2(4, 125);
         public void Draw(SpriteBatch sprite)
         {
             int offset = 0;
             foreach (Resource res in Resources)
             {
-                for(int i = 0; i < res.GetBarStage(); i++)
+                for (int i = 0; i < res.GetBarStage(); i++)
                 {
-                    sprite.Draw(BarStage, position + new Vector2(BarStage.Size.Width + 2, 0) * i + new Vector2(0,offset), res.color);
+                    sprite.Draw(BarStage, position + new Vector2(BarStage.Size.Width + 2, 0) * i + new Vector2(0, offset), res.color);
                 }
                 offset += BarStage.Size.Height + 2;
             }

@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Projectile : IDrawable, ICloneable, IDisposable
+    internal class Projectile : IDrawable, ICloneable, IDisposable
     {
         public Sprite Sprite { get; set; }
         public Vector2 Position { get; set; }
@@ -26,9 +22,15 @@ namespace StarGame
 
         public virtual void Draw(SpriteBatch sprite)
         {
-            if (Decay < 0) Dispose();
-            if(!IsDisposed)
-                sprite.Draw(Sprite, Position + Input.cameraOffset,null, Color.White, Rotation, new Vector2(Sprite.Size.Width/2,Sprite.Size.Height/2),1,SpriteEffects.None,0);
+            if (Decay < 0)
+            {
+                Dispose();
+            }
+
+            if (!IsDisposed)
+            {
+                sprite.Draw(Sprite, Position + Input.cameraOffset, null, Color.White, Rotation, new Vector2(Sprite.Size.Width / 2, Sprite.Size.Height / 2), 1, SpriteEffects.None, 0);
+            }
         }
         public bool IsDisposed { get; set; }
         public void Dispose()

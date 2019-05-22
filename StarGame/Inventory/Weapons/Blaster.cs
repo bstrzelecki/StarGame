@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Blaster : Weapon
+    internal class Blaster : Weapon
     {
         public Blaster(Projectile projectile) : base(projectile)
         {

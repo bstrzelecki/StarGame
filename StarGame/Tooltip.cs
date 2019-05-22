@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace StarGame
 {
-    class Tooltip
+    internal class Tooltip
     {
         public static void Draw(Vector2 position, Item item, SpriteBatch sprite)
         {

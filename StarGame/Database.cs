@@ -30,9 +30,15 @@ namespace StarGame
             {
                 foreach (string key in Items.Keys)
                 {
-                    if (i.Count > amount) break;
+                    if (i.Count > amount)
+                    {
+                        break;
+                    }
+
                     if (rng.Next(15) == 1)
+                    {
                         i.Add(Items[key]);
+                    }
                 }
             } while (i.Count < amount);
             return i;
@@ -48,8 +54,8 @@ namespace StarGame
         {
             AddItem("thruster", new Thruster());
             AddItem("blaster", new PlasmaBlaster());
-            AddItem("laser", new WeaponItem("Laser Beam", "Fires single beam.\nDeals 1dmg per hit.",new Sprite("w"), new LaserBeam(new Projectile(new Sprite("blip")))));
-            AddItem("missle", new WeaponItem("Homing Missle Lanucer", "Launches single hopming missle.\nDeals 1dmg per hit.",new Sprite("w"), new RocketLauncher(new HomingMissle(null,new Sprite("plasma")))));
+            AddItem("laser", new WeaponItem("Laser Beam", "Fires single beam.\nDeals 1dmg per hit.", new Sprite("w"), new LaserBeam(new Projectile(new Sprite("blip")))));
+            AddItem("missle", new WeaponItem("Homing Missle Lanucer", "Launches single hopming missle.\nDeals 1dmg per hit.", new Sprite("w"), new RocketLauncher(new HomingMissle(null, new Sprite("plasma")))));
         }
     }
 }

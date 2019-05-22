@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 namespace StarGame
 {
-    class RocketLauncher : Weapon
+    internal class RocketLauncher : Weapon
     {
         public ITargetable target;
         public RocketLauncher(HomingMissle projectile) : base(projectile)
@@ -20,7 +15,7 @@ namespace StarGame
             {
                 return;
             }
-            HomingMissle p = ((HomingMissle)projectile).Clone(target??MainScene.player);
+            HomingMissle p = ((HomingMissle)projectile).Clone(target ?? MainScene.player);
             p.Position = position + Physics.GetForwardVector(rotation) * 30;
             p.physics.velocity = velocity;
             //p.Rotation = Input.GetRads(rotation) + (float)Math.PI / 2;

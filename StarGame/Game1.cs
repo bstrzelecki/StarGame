@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 
 namespace StarGame
 {
@@ -15,7 +14,7 @@ namespace StarGame
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private SpriteBatch spriteBatch;
 
         protected static List<IDrawable> renderers = new List<IDrawable>();
         public static List<IUpdateable> updates = new List<IUpdateable>();
@@ -68,7 +67,7 @@ namespace StarGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
 
             Registry.LoadContent(this);
             try
@@ -78,10 +77,15 @@ namespace StarGame
                 {
                     string f = file.Remove(0, file.LastIndexOf('\\') + 1);
                     f = f.Remove(f.Length - 4, 4);
-                    if (textures.ContainsKey(f) || fonts.ContainsKey(f)) continue;
+                    if (textures.ContainsKey(f) || fonts.ContainsKey(f))
+                    {
+                        continue;
+                    }
+
                     Load(f);
                 }
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Data);
             }
@@ -116,10 +120,14 @@ namespace StarGame
         {
 
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
             foreach (IUpdateable update in updates)
+            {
                 update.Update();
+            }
 
             base.Update(gameTime);
         }
@@ -134,7 +142,10 @@ namespace StarGame
 
             spriteBatch.Begin();
             foreach (IDrawable draw in renderers)
+            {
                 draw.Draw(spriteBatch);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

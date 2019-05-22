@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StarGame
+﻿namespace StarGame
 {
-    class Registry
+    internal class Registry
     {
         public static MainScene scene = new MainScene();
         public static Time time = new Time();

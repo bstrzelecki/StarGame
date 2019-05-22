@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StarGame
+﻿namespace StarGame
 {
-    class GenericItem : Item
+    internal class GenericItem : Item
     {
         public GenericItem(Slot slot, string name, Sprite sprite)
         {
@@ -16,7 +10,7 @@ namespace StarGame
         }
         public override void Apply()
         {
-            
+
         }
 
         public override Item Clone()
@@ -26,7 +20,7 @@ namespace StarGame
 
         public override void Remove()
         {
-            
+
         }
     }
 }

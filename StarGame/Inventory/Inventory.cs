@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace StarGame
 {
-    class Inventory : IDrawable, IUpdateable
+    internal class Inventory : IDrawable, IUpdateable
     {
         public List<Item> Items { get; set; } = new List<Item>();
         public UtilitySlot[] Utilities { get; set; } = new UtilitySlot[7];
         public Sprite slot;
         public Sprite util;
 
-        public  Rectangle[] slotCollisions = new Rectangle[72];
+        public Rectangle[] slotCollisions = new Rectangle[72];
         public int InventorySize { get; set; } = 72;
 
         public bool AddItem(Item item)
@@ -87,7 +84,7 @@ namespace StarGame
         private Vector2 utilitiesOffset = new Vector2(20, 80);
         private Vector2 resourceOffset = new Vector2(870, 150);
         private int slotCap = 8;
-        bool drawUICollisions = false;
+        private bool drawUICollisions = false;
         public void Draw(SpriteBatch sprite)
         {
             DrawItems(sprite);
@@ -128,7 +125,7 @@ namespace StarGame
                 sprite.DrawString(Game1.fonts["font"], res.ToString(), UIController.position + resourceOffset + new Vector2(0, 20 * i), Color.Green);
                 i++;
             }
-            sprite.DrawString(Game1.fonts["font"], MainScene.Cash.ToString(), UIController.position + new Vector2(960,80), Color.Green);
+            sprite.DrawString(Game1.fonts["font"], MainScene.Cash.ToString(), UIController.position + new Vector2(960, 80), Color.Green);
         }
 
         private void DrawUtilities(SpriteBatch sprite)
@@ -162,22 +159,25 @@ namespace StarGame
             }
         }
 
-        Item hoverItem;
-
-        bool isDragging = false;
-        bool firstClick = true;
-        Item dragItem;
-        Vector2 mouseRelativePosition;
-        Rectangle inventorySpace;
+        private Item hoverItem;
+        private bool isDragging = false;
+        private bool firstClick = true;
+        private Item dragItem;
+        private Vector2 mouseRelativePosition;
+        private Rectangle inventorySpace;
         public void Update()
         {
-            if (MainScene.ui.UI != DisplayedUI.Inventory) return;
-            
+            if (MainScene.ui.UI != DisplayedUI.Inventory)
+            {
+                return;
+            }
+
             if (!isDragging && CheckCollisions(out Rectangle rect))
             {
                 int i = slotCollisions.ToList().IndexOf(rect);
                 hoverItem = Items[i];
-            }else if (UtilityCollisions(out int s))
+            }
+            else if (UtilityCollisions(out int s))
             {
                 hoverItem = Utilities[s].item;
             }
@@ -191,16 +191,23 @@ namespace StarGame
                 if (CheckCollisions(out rect))
                 {
                     int i = slotCollisions.ToList().IndexOf(rect);
-                    if(RemoveItem(i,out Item item))
+                    if (RemoveItem(i, out Item item))
                     {
                         dragItem = item;
-                        mouseRelativePosition =  rect.Location.ToVector2() - Input.GetMousePosition();
+                        mouseRelativePosition = rect.Location.ToVector2() - Input.GetMousePosition();
                     }
                 }
             }
-            if (dragItem != null) isDragging = true;
-            else isDragging = false;
-            if(Input.IsMouseKeyUp(0))
+            if (dragItem != null)
+            {
+                isDragging = true;
+            }
+            else
+            {
+                isDragging = false;
+            }
+
+            if (Input.IsMouseKeyUp(0))
             {
                 Drop();
             }
@@ -248,7 +255,7 @@ namespace StarGame
         private bool UtilityCollisions(out int slot)
         {
             slot = -1;
-            foreach(UtilitySlot u in Utilities)
+            foreach (UtilitySlot u in Utilities)
             {
                 slot++;
                 if (u.size.Contains(Input.GetMousePosition()))

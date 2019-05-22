@@ -1,21 +1,18 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace StarGame
 {
-    class TradeUI : IDrawable, IUpdateable
+    internal class TradeUI : IDrawable, IUpdateable
     {
         public Vector2 slotsOffset = new Vector2(30, 90);
         private Vector2 vendorOffset = new Vector2(680, 90);
         private Rectangle inventorySpace;
         private Rectangle[] slotCollisions = new Rectangle[72];
         private List<Rectangle> vendorCollisions = new List<Rectangle>();
-        private Rectangle dumpSite; 
+        private Rectangle dumpSite;
         public TradeUI()
         {
             Sprite slot = MainScene.inventory.slot;
@@ -48,8 +45,8 @@ namespace StarGame
             }
         }
 
-        Vector2 mouseRelativePosition;
-        bool drawDebug = true;
+        private Vector2 mouseRelativePosition;
+        private bool drawDebug = true;
         public void Draw(SpriteBatch sprite)
         {
             int i = 0;
@@ -69,10 +66,14 @@ namespace StarGame
             DrawVendorItems(sprite, slot);
             if (hoverItem != null)
             {
-                if(isDraggingVendorItem)
+                if (isDraggingVendorItem)
+                {
                     Tooltip.Draw(Input.GetMousePosition(), hoverItem, hoverItem.Price, sprite);
+                }
                 else
+                {
                     Tooltip.Draw(Input.GetMousePosition(), hoverItem, sprite);
+                }
             }
             if (dragItem != null)
             {
@@ -84,7 +85,7 @@ namespace StarGame
 
             if (drawDebug)
             {
-                foreach(var s in slotCollisions)
+                foreach (var s in slotCollisions)
                 {
                     //sprite.Draw(new Sprite(), s, Color.Red);
                 }
@@ -96,13 +97,18 @@ namespace StarGame
                 //sprite.Draw(new Sprite(), dumpSite, Color.Red);
             }
         }
-        Item dragItem = null;
-        Item hoverItem = null;
-        bool isDraggingVendorItem = false;
+
+        private Item dragItem = null;
+        private Item hoverItem = null;
+        private bool isDraggingVendorItem = false;
         public void Update()
         {
-            if (MainScene.ui.UI != DisplayedUI.Trade) return;
-            if(dragItem == null)
+            if (MainScene.ui.UI != DisplayedUI.Trade)
+            {
+                return;
+            }
+
+            if (dragItem == null)
             {
                 if (Input.IsMouseKeyDown(0))
                 {
@@ -122,7 +128,7 @@ namespace StarGame
                         {
                             dragItem = MainScene.inventory.Items[slotCollisions.ToList().IndexOf(rect)].Clone();
                             mouseRelativePosition = rect.Location.ToVector2() - Input.GetMousePosition();
-                            MainScene.inventory.RemoveItem(slotCollisions.ToList().IndexOf(rect),out Item it);
+                            MainScene.inventory.RemoveItem(slotCollisions.ToList().IndexOf(rect), out Item it);
                             isDraggingVendorItem = false;
                         }
                     }
@@ -141,7 +147,11 @@ namespace StarGame
                     }
                     foreach (Rectangle rect in slotCollisions)
                     {
-                        if (hoverItem != null) return;
+                        if (hoverItem != null)
+                        {
+                            return;
+                        }
+
                         if (rect.Contains(Input.GetMousePosition()))
                         {
                             hoverItem = MainScene.inventory.Items[slotCollisions.ToList().IndexOf(rect)].Clone();
@@ -150,7 +160,7 @@ namespace StarGame
                         }
                     }
                 }
-                
+
             }
             else
             {

@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class SimulationProxy
+    internal class SimulationProxy
     {
         public Player blip;
         public int simulationSpeed = 5;
@@ -27,7 +22,7 @@ namespace StarGame
         }
         private void Time_OnTick()
         {
-            for(int i = 0; i < simulationSpeed; i++)
+            for (int i = 0; i < simulationSpeed; i++)
             {
                 blip.Time_OnTick();
             }

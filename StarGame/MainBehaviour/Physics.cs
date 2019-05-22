@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Physics : ICloneable
+    internal class Physics : ICloneable
     {
         public Vector2 velocity;
         public Vector2 acceleration;
@@ -21,8 +17,15 @@ namespace StarGame
         }
         public float GetDeltaRotation()
         {
-            if (deltaRotation > RotationLimit) deltaRotation = RotationLimit;
-            if (deltaRotation < -RotationLimit) deltaRotation = -RotationLimit;
+            if (deltaRotation > RotationLimit)
+            {
+                deltaRotation = RotationLimit;
+            }
+
+            if (deltaRotation < -RotationLimit)
+            {
+                deltaRotation = -RotationLimit;
+            }
 
             float t = deltaRotation;
             return t;
@@ -46,8 +49,10 @@ namespace StarGame
 
         public object Clone()
         {
-            Physics ph = new Physics();
-            ph.velocity = velocity;
+            Physics ph = new Physics
+            {
+                velocity = velocity
+            };
             return ph;
         }
     }

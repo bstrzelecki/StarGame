@@ -1,14 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class Radar : IDrawable
+    internal class Radar : IDrawable
     {
         public Sprite sprite;
         public Vector2 position;
@@ -17,7 +13,7 @@ namespace StarGame
         public void AddBlip(Vector2 player, Vector2 blip)
         {
             blip -= player;
-            blips.Add(new Blip(blip / scale,Color.White));
+            blips.Add(new Blip(blip / scale, Color.White));
         }
         public void AddBlip(Vector2 player, Vector2 blip, Color color)
         {
@@ -35,7 +31,7 @@ namespace StarGame
         {
             if (cmd.Check("radar"))
             {
-                if(cmd == "scale")
+                if (cmd == "scale")
                 {
                     scale = cmd.GetInt(0);
                 }
@@ -73,7 +69,8 @@ namespace StarGame
             }
         }
     }
-    class Blip
+
+    internal class Blip
     {
         public Vector2 Position { get; set; }
         public Color Type { get; set; }

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StarGame
+﻿namespace StarGame
 {
-    class Thruster : Item
+    internal class Thruster : Item
     {
         public Thruster()
         {
@@ -15,7 +9,8 @@ namespace StarGame
             Description = "Slightly improves yout speed";
             InventorySlot = Slot.Thruster;
         }
-        float diff;
+
+        private float diff;
         public Thruster(string name, float change)
         {
             diff = change;

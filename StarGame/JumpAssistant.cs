@@ -1,13 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class JumpAssistant
+    internal class JumpAssistant
     {
         public static bool IsPlayerInVaidPosition(Vector2 destinationStarPosition)
         {
@@ -24,7 +20,7 @@ namespace StarGame
             Vector2 playerDeltaPos = MainScene.player.position - MainScene.sun.position;
             deltaPos.Normalize();
             playerDeltaPos.Normalize();
-            
+
             double angle2 = Math.Atan2(-deltaPos.Y, deltaPos.X);
             double pangle2 = Math.Atan2(-playerDeltaPos.Y, playerDeltaPos.X);
             angle2 = Input.GetDegree((float)angle2);
@@ -38,7 +34,7 @@ namespace StarGame
         }
         public static bool DeductPower(int cap)
         {
-            if(MainScene.barArray.GetResource("power") > cap * .9f)
+            if (MainScene.barArray.GetResource("power") > cap * .9f)
             {
                 MainScene.barArray.SubtractResource("power", cap * .9f);
                 return true;
@@ -59,7 +55,7 @@ namespace StarGame
         private static float GetLastPlanet(StarSystem system)
         {
             float max = int.MinValue;
-            foreach(Planet pl in system.planets)
+            foreach (Planet pl in system.planets)
             {
                 max = (pl.distance > max) ? pl.distance : max;
             }

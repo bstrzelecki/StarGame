@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    class RandomSpaceGenerator
+    internal class RandomSpaceGenerator
     {
         public float Scale { get; set; } = 1f;
         public string TextureBaseName { get; set; } = "planet";
@@ -18,7 +14,7 @@ namespace StarGame
         {
             Random rng = new Random();
             StarSystem system = new StarSystem(new Sprite(StarNamespace + rng.Next(0, PossibleStars)), rng.Next(60, 240));
-            for(int i = rng.Next(3, 12); i > 0; i--)
+            for (int i = rng.Next(3, 12); i > 0; i--)
             {
                 GeneratePlanet(rng, system, i);
             }

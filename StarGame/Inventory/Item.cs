@@ -1,13 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StarGame
 {
-    abstract class Item
+    internal abstract class Item
     {
         public Sprite Graphic { get; set; }
         public string Name { get; set; }
@@ -17,7 +12,7 @@ namespace StarGame
         {
             get
             {
-                if(nameLenght == 0)
+                if (nameLenght == 0)
                 {
                     nameLenght = (int)Game1.fonts["font"].MeasureString(Name).X;
                 }
@@ -31,7 +26,7 @@ namespace StarGame
         {
             get
             {
-                if(descSize == Vector2.Zero)
+                if (descSize == Vector2.Zero)
                 {
                     descSize = Game1.fonts["font"].MeasureString(Description);
                 }
@@ -48,7 +43,8 @@ namespace StarGame
 
         public abstract Item Clone();
     }
-    enum Slot
+
+    internal enum Slot
     {
         Thruster,
         JumpDrive,
