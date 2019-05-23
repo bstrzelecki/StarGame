@@ -10,7 +10,7 @@ namespace StarGame
             Vector2 playerPos = MainScene.player.position;
             if (Vector2.Distance(playerPos, MainScene.sun.position) < GetLastPlanet(MainScene.sun))
             {
-                Notifications.DisplayNotification("You are too close to star, " + Vector2.Distance(playerPos, MainScene.sun.position));
+                Notifications.DisplayNotification("You are too close to star, " + Vector2.Distance(playerPos, MainScene.sun.position) + " / " + GetLastPlanet(MainScene.sun));
                 return false;
             }
 
