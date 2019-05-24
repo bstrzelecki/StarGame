@@ -59,7 +59,7 @@
     <Compile Include="Input.cs" />
     <Compile Include="Interfaces\IDrawable.cs" />
     <Compile Include="Interfaces\IUpdateable.cs" />
-    <Compile Include="JumpAssistant.cs" />
+    <Compile Include="MainBehaviour\Player\JumpAssistant.cs" />
     <Compile Include="MainBehaviour\MainScene.cs" />
     <Compile Include="MainBehaviour\Notifications.cs" />
     <Compile Include="MainBehaviour\Physics.cs" />
@@ -67,10 +67,10 @@
     <Compile Include="Inventory\UtilitySlot.cs" />
     <Compile Include="Inventory\Items\WeaponItem.cs" />
     <Compile Include="Inventory\Weapons\RocketLauncher.cs" />
-    <Compile Include="SimpleArmor.cs" />
-    <Compile Include="Tooltip.cs" />
-    <Compile Include="TradeUI.cs" />
-    <Compile Include="Vendor.cs" />
+    <Compile Include="Inventory\Items\SimpleArmor.cs" />
+    <Compile Include="UI\Tooltip.cs" />
+    <Compile Include="Inventory\Trade\TradeUI.cs" />
+    <Compile Include="Inventory\Trade\Vendor.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />
