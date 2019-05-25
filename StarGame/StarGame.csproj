@@ -69,8 +69,8 @@
     <Compile Include="Inventory\Weapons\RocketLauncher.cs" />
     <Compile Include="Inventory\Items\SimpleArmor.cs" />
     <Compile Include="UI\Tooltip.cs" />
-    <Compile Include="Inventory\Trade\TradeUI.cs" />
-    <Compile Include="Inventory\Trade\Vendor.cs" />
+    <Compile Include="Trade\TradeUI.cs" />
+    <Compile Include="Trade\Vendor.cs" />
     <Compile Include="WorldMap\Planet.cs" />
     <Compile Include="MainBehaviour\Player.cs" />
     <Compile Include="Program.cs" />

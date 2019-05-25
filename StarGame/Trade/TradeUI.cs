@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -83,6 +84,9 @@ namespace StarGame
             sprite.DrawString(Game1.fonts["font"], MainScene.Cash.ToString(), UIController.position + new Vector2(960, 80), Color.Green);
             sprite.DrawString(Game1.fonts["font"], MainScene.TradeShip.ScrapPrice.ToString(), UIController.position + new Vector2(960, 240), Color.Green);
 
+            DrawResourcePrices(sprite);
+
+
             if (drawDebug)
             {
                 foreach (var s in slotCollisions)
@@ -93,11 +97,65 @@ namespace StarGame
                 {
                     //sprite.Draw(new Sprite(), s, Color.Red);
                 }
+                foreach (var s in resCollisions)
+                {
+                    //sprite.Draw(new Sprite(), s, Color.Red);
+                }
                 //sprite.Draw(new Sprite(), inventorySpace, Color.Red);
                 //sprite.Draw(new Sprite(), dumpSite, Color.Red);
             }
         }
-
+        Rectangle[] resCollisions = new Rectangle[4];
+        private void DrawResourcePrices(SpriteBatch sprite)
+        {
+            int i = 0;
+            foreach(int price in MainScene.TradeShip.ResourcePrices)
+            {
+                if(resCollisions[i] == Rectangle.Empty)
+                {
+                    resCollisions[i] = new Rectangle((UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i)).ToPoint(), new Point(200, 40));
+                }
+                sprite.DrawString(Game1.fonts["font"],"Buy 1 " + GetLabel(i) + " for " + price.ToString() + " (" + MainScene.barArray.Resources[i].Quantity + "/100)", UIController.position + new Vector2(880, 380) + new Vector2(0,50 * i), GetResourceColor(i));
+                i++;
+            }
+        }
+        private Color GetResourceColor(int i)
+        {
+            if (IsOverResource(i))
+            {
+                if (Input.IsMouseKeyDown(0))
+                {
+                    return Color.Red;
+                }
+                else
+                {
+                    return Color.Orange;
+                }
+            }
+            else
+            {
+                return Color.Green;
+            }
+        }
+        private string GetLabel(int i)
+        {
+            switch (i)
+            {
+                case 0:
+                    return "Fuel";
+                case 1:
+                    return "Oxygen";
+                case 2:
+                    return "Power";
+                case 3:
+                    return "Armor";
+            }
+            return string.Empty;
+        }
+        private bool IsOverResource(int i)
+        {
+            return resCollisions[i].Contains(Input.GetMousePosition());
+        }
         private Item dragItem = null;
         private Item hoverItem = null;
         private bool isDraggingVendorItem = false;
@@ -106,6 +164,18 @@ namespace StarGame
             if (MainScene.ui.UI != DisplayedUI.Trade)
             {
                 return;
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                if(IsOverResource(i) && Input.IsMouseKeyDown(0))
+                {
+                    if(MainScene.Cash >= MainScene.TradeShip.ResourcePrices[i] && MainScene.barArray.Resources[i].Quantity < 100)
+                    {
+                        MainScene.Cash -= MainScene.TradeShip.ResourcePrices[i];
+                        MainScene.barArray.Resources[i].Quantity++;
+                    }
+                }
             }
 
             if (dragItem == null)
