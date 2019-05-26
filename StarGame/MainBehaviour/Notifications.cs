@@ -5,16 +5,23 @@ namespace StarGame
 {
     internal class Notifications
     {
-        private static string displayedText;
+        private static string displayedText = string.Empty;
         private static float notificationsTime = 60f;
         private static float decay;
         public static void DisplayNotification(string text)
         {
-            decay = notificationsTime;
-            displayedText = text;
-            Time.OnTick += Time_OnTick;
+            if (displayedText == string.Empty)
+            {
+                decay = notificationsTime;
+                displayedText = text;
+                Time.OnTick += Time_OnTick;
+            }
+            else
+            {
+                queued = text;
+            }
         }
-
+        private static string queued;
         private static void Time_OnTick()
         {
             decay--;
@@ -22,6 +29,11 @@ namespace StarGame
             {
                 displayedText = string.Empty;
                 Time.OnTick -= Time_OnTick;
+                if(queued != string.Empty)
+                {
+                    DisplayNotification(queued);
+                    queued = string.Empty;
+                }
             }
         }
 

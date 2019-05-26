@@ -22,6 +22,11 @@ namespace StarGame
         }
         public void SetView(DisplayedUI ui)
         {
+            if (ui == DisplayedUI.Trade && MainScene.TradeShip == null) {
+                Notifications.DisplayNotification("No trade ship nearby");
+                return;
+            }
+
             UI = ui;
             if (ui == DisplayedUI.None)
             {

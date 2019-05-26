@@ -51,6 +51,16 @@ namespace StarGame
             newPlayerPos *= GetLastPlanet(MainScene.sun) + 500;
             MainScene.player.position = newPlayerPos;
             Notifications.DisplayNotification("Jumped!!!");
+            Random rng = new Random();
+            if (rng.Next(4) == 0)
+            {
+                MainScene.TradeShip = new Vendor();
+                Notifications.DisplayNotification("Trade ship spotted");
+            }
+            else
+            {
+                MainScene.TradeShip = null;
+            }
         }
         private static float GetLastPlanet(StarSystem system)
         {
