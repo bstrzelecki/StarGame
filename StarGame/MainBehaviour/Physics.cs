@@ -34,6 +34,11 @@ namespace StarGame
         {
             Time.OnTick += Time_OnTick;
         }
+        /// <summary>
+        /// Calculates vecttor for input direction
+        /// </summary>
+        /// <param name="rotation">Rotation in degrees</param>
+        /// <returns></returns>
         public static Vector2 GetForwardVector(float rotation)
         {
             float x = (float)Math.Cos((double)Input.GetRads(rotation));

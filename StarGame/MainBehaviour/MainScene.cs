@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,6 +19,7 @@ namespace StarGame
         public static BarArray barArray;
         public static UIController ui;
         public static Inventory inventory;
+        public static Random rng = new Random();
 
         public static int Cash = 150;
         public static Vendor TradeShip;

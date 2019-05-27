@@ -146,6 +146,7 @@ namespace StarGame
 
         public void Update()
         {
+            collider.Location = position.ToPoint();
             if (rmb != null && Input.IsMouseKeyDown(2))
             {
                 rmb.SpawnProjectile(position, Rotation, physics.velocity);
