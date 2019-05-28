@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using System.Linq;
 
 namespace StarGame
 {
-    class FloatingScrap : IUpdateable, IDrawable, IDisposable
+    internal class FloatingScrap : IUpdateable, IDrawable, IDisposable
     {
         public Vector2 position;
         public float direction;
         private Sprite image;
         public FloatingScrap()
-        {      
+        {
             position = new Vector2(MainScene.rng.Next(-50000, 50000), MainScene.rng.Next(-50000, 50000));
             direction = MainScene.rng.Next(0, 360);
             image = new Sprite();
@@ -28,13 +25,21 @@ namespace StarGame
 
         public void Draw(SpriteBatch sprite)
         {
-            if (IsDisposed) return;
+            if (IsDisposed)
+            {
+                return;
+            }
+
             sprite.Draw(image, Input.cameraOffset + position, Color.White);
         }
 
         public void Update()
         {
-            if (IsDisposed) return;
+            if (IsDisposed)
+            {
+                return;
+            }
+
             position = Physics.GetForwardVector(direction) * 50;
             if (MainScene.player.collider.Contains(position))
             {

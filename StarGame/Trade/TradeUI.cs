@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -105,17 +104,18 @@ namespace StarGame
                 //sprite.Draw(new Sprite(), dumpSite, Color.Red);
             }
         }
-        Rectangle[] resCollisions = new Rectangle[4];
+
+        private Rectangle[] resCollisions = new Rectangle[4];
         private void DrawResourcePrices(SpriteBatch sprite)
         {
             int i = 0;
-            foreach(int price in MainScene.TradeShip.ResourcePrices)
+            foreach (int price in MainScene.TradeShip.ResourcePrices)
             {
-                if(resCollisions[i] == Rectangle.Empty)
+                if (resCollisions[i] == Rectangle.Empty)
                 {
                     resCollisions[i] = new Rectangle((UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i)).ToPoint(), new Point(200, 40));
                 }
-                sprite.DrawString(Game1.fonts["font"],"Buy 1 " + GetLabel(i) + " for " + price.ToString() + " (" + MainScene.barArray.Resources[i].Quantity + "/100)", UIController.position + new Vector2(880, 380) + new Vector2(0,50 * i), GetResourceColor(i));
+                sprite.DrawString(Game1.fonts["font"], "Buy 1 " + GetLabel(i) + " for " + price.ToString() + " (" + MainScene.barArray.Resources[i].Quantity + "/100)", UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i), GetResourceColor(i));
                 i++;
             }
         }
@@ -168,9 +168,9 @@ namespace StarGame
 
             for (int i = 0; i < 4; i++)
             {
-                if(IsOverResource(i) && Input.IsMouseKeyDown(0))
+                if (IsOverResource(i) && Input.IsMouseKeyDown(0))
                 {
-                    if(MainScene.Cash >= MainScene.TradeShip.ResourcePrices[i] && MainScene.barArray.Resources[i].Quantity < 100)
+                    if (MainScene.Cash >= MainScene.TradeShip.ResourcePrices[i] && MainScene.barArray.Resources[i].Quantity < 100)
                     {
                         MainScene.Cash -= MainScene.TradeShip.ResourcePrices[i];
                         MainScene.barArray.Resources[i].Quantity++;

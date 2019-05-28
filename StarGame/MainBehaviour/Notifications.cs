@@ -29,7 +29,7 @@ namespace StarGame
             {
                 displayedText = string.Empty;
                 Time.OnTick -= Time_OnTick;
-                if(queued != string.Empty)
+                if (queued != string.Empty)
                 {
                     DisplayNotification(queued);
                     queued = string.Empty;
