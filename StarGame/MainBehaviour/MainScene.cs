@@ -23,12 +23,15 @@ namespace StarGame
 
         public static int Cash = 150;
         public static Vendor TradeShip;
+
+        public List<FloatingScrap> scraps = new List<FloatingScrap>();
         public void Draw(SpriteBatch sprite)
         {
             foreach (Tile tile in background)
             {
                 sprite.Draw(tile.sprite, tile.position * this.tile.Width + Input.cameraOffset, Color.White);
             }
+            foreach (FloatingScrap scrap in scraps) scrap.Draw(sprite);
             DrawObjects(sprite);
         }
 
@@ -53,7 +56,7 @@ namespace StarGame
             HandleInput();
             ExeCommands();
             inventory.Update();
-
+            foreach (FloatingScrap scrap in scraps) scrap.Update();
         }
 
         private static void ExeCommands()
@@ -160,6 +163,11 @@ namespace StarGame
             StarMap.Init();
 
             TradeShip = new Vendor();
+
+            for(int i = 0; i < 50; i++)
+            {
+                scraps.Add(new FloatingScrap());
+            }
         }
     }
 }
