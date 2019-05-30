@@ -74,7 +74,7 @@ namespace StarGame
             }
             else
             {
-                Debug.WriteLine("Cont convert value to int !!!!");
+                Debug.WriteLine("Cant convert value to int !!!!");
             }
             return 0;
         }
@@ -87,7 +87,7 @@ namespace StarGame
             }
             else
             {
-                Debug.WriteLine("Cont convert value to bool !!!!");
+                Debug.WriteLine("Cant convert value to bool !!!!");
             }
             return false;
         }
