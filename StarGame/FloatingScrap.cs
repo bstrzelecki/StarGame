@@ -12,9 +12,9 @@ namespace StarGame
         private Sprite image;
         public FloatingScrap()
         {
-            position = new Vector2(MainScene.rng.Next(-50000, 50000), MainScene.rng.Next(-50000, 50000));
+            position = new Vector2(MainScene.rng.Next(-5000, 5000), MainScene.rng.Next(-5000, 5000));
             direction = MainScene.rng.Next(0, 360);
-            image = new Sprite();
+            image = new Sprite("w");
         }
         public bool IsDisposed { get; set; }
         public void Dispose()
@@ -40,7 +40,7 @@ namespace StarGame
                 return;
             }
 
-            position = Physics.GetForwardVector(direction) * 50;
+            position += Physics.GetForwardVector(direction) * 5;
             if (MainScene.player.collider.Contains(position))
             {
                 if (MainScene.rng.Next(10) == 0)

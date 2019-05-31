@@ -115,6 +115,12 @@ namespace StarGame
                     radar.AddBlip(player.position, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + sun.position);
                 }
             }
+
+            foreach(FloatingScrap scrap in scraps)
+            {
+                if (scrap.IsDisposed) continue;
+                radar.AddBlip(player.position, scrap.position, Color.Green);
+            }
         }
 
         private void SetupBackground(Vector2 playerInBackground)
