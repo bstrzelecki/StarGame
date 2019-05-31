@@ -45,10 +45,13 @@ namespace StarGame
             {
                 if (MainScene.rng.Next(10) == 0)
                 {
-                    MainScene.inventory.AddItem(Database.GetRandomItems(1).First());
+                    Item item = Database.GetRandomItems(1).First();
+                    MainScene.inventory.AddItem(item);
+                    Notifications.DisplayNotification("You found " + item.Name);
                 }
                 else
                 {
+                    MainScene.inventory.AddItem(new SimpleArmor("Scrap", MainScene.rng.Next(5,100)));
                     Notifications.DisplayNotification("Its only a scrap");
                 }
                 Dispose();

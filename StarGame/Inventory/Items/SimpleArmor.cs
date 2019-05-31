@@ -6,8 +6,9 @@
         public SimpleArmor(string name, int hull)
         {
             Name = name;
-            Description = "Simple armor\nthat provides " + hull.ToString() + "aditional\nhullpoints";
+            Description = "Simple armor\nthat provides " + hull.ToString() + " aditional\nhullpoints";
             hp = hull;
+            Graphic = new Sprite();
         }
         public override void Apply()
         {
