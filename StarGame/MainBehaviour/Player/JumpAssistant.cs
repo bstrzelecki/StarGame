@@ -51,6 +51,7 @@ namespace StarGame
             newPlayerPos *= GetLastPlanet(MainScene.sun) + 500;
             MainScene.player.position = newPlayerPos;
             Notifications.DisplayNotification("Jumped!!!");
+            MainScene.scraps.Clear();
             Random rng = new Random();
             if (rng.Next(4) == 0)
             {

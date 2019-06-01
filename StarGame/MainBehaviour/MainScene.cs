@@ -24,7 +24,7 @@ namespace StarGame
         public static int Cash = 150;
         public static Vendor TradeShip;
 
-        public List<FloatingScrap> scraps = new List<FloatingScrap>();
+        public static List<FloatingScrap> scraps = new List<FloatingScrap>();
         public void Draw(SpriteBatch sprite)
         {
             foreach (Tile tile in background)
