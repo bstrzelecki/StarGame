@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System;
 
 namespace StarGame
 {
@@ -23,7 +24,8 @@ namespace StarGame
         public override string ToString()
         {
             string n = Name[0].ToString().ToUpper() + Name.Substring(1, Name.Length - 1);
-            return n + ": " + Quantity;
+            
+            return n + ": " + Math.Floor(Quantity);
         }
     }
 }

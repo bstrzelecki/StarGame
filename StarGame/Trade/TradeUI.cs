@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -115,7 +116,7 @@ namespace StarGame
                 {
                     resCollisions[i] = new Rectangle((UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i)).ToPoint(), new Point(200, 40));
                 }
-                sprite.DrawString(Game1.fonts["font"], "Buy 1 " + GetLabel(i) + " for " + price.ToString() + " (" + MainScene.barArray.Resources[i].Quantity + "/100)", UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i), GetResourceColor(i));
+                sprite.DrawString(Game1.fonts["font"], "Buy 1 " + GetLabel(i) + " for " + price.ToString() + " (" + Math.Floor(MainScene.barArray.Resources[i].Quantity) + "/100)", UIController.position + new Vector2(880, 380) + new Vector2(0, 50 * i), GetResourceColor(i));
                 i++;
             }
         }

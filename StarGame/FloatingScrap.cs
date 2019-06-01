@@ -16,6 +16,12 @@ namespace StarGame
             direction = MainScene.rng.Next(0, 360);
             image = new Sprite("w");
         }
+        public FloatingScrap(Vector2 position)
+        {
+            this.position = position;
+            direction = MainScene.rng.Next(0, 360);
+            image = new Sprite("w");
+        }
         public bool IsDisposed { get; set; }
         public void Dispose()
         {
