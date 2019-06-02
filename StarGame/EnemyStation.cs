@@ -1,16 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace StarGame
 {
-    internal class EnemyStation : Planet, IUpdateable
+    internal class EnemyStation : Planet, IUpdateable, IDrawable
     {
         public bool HasJammer { get; set; }
         public int hp = 100;
-        public Weapon weapon;
+        public Weapon weapon; 
+        private readonly ITargetable target = MainScene.player;
         public EnemyStation(Sprite sprite, float mass, float distance) : base(sprite, mass, distance)
         {
-            Game1.RegisterUpdate(this);
+            weapon = new RocketLauncher(new HomingMissle(target, new Sprite("plasma")));
         }
 
         private Vector2 _position = Vector2.Zero;
@@ -27,16 +29,21 @@ namespace StarGame
         {
             if (weapon != null)
             {
-                weapon.SpawnProjectile(Position, Input.GetDegree((float)Math.Sin((MainScene.player.position - Position).Length())), Vector2.Zero);
+                weapon.SpawnProjectile(Position - Input.cameraOffset, Input.GetDegree((float)Math.Sin((target.GetPosition() - Position - Input.cameraOffset).Length())), Vector2.Zero);
             }
         }
 
         public void Update()
         {
-            if (Vector2.Distance(Position, MainScene.player.position) < 2000)
+            //if (Vector2.Distance(Position, MainScene.player.position) < 2000)
             {
                 Fire();
             }
+        }
+
+        public void Draw(SpriteBatch sprite)
+        {
+            weapon.DrawProjectile(sprite);
         }
     }
 }

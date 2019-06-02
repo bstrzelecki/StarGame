@@ -56,6 +56,7 @@ namespace StarGame
             HandleInput();
             ExeCommands();
             inventory.Update();
+            sun.Update();
             foreach (FloatingScrap scrap in scraps) scrap.Update();
         }
 
@@ -157,7 +158,7 @@ namespace StarGame
             RandomSpaceGenerator gen = new RandomSpaceGenerator();
             sun = gen.Build();
             sun.position = new Vector2(6000, 6000);
-
+            sun.AddPlanet(new EnemyStation(new Sprite("inventory"), 5, 1000));
             tile = Game1.textures["tile"];
             radar = new Radar(new Vector2(Game1.graphics.GraphicsDevice.Viewport.Width - 250, Game1.graphics.GraphicsDevice.Viewport.Height - 250));
             proxy = new SimulationProxy();

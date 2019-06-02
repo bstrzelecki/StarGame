@@ -45,6 +45,20 @@ namespace StarGame
                 {
                     sprite.Draw(moon.sprite, Physics.GetForwardVector(moon.Period) * moon.distance + Physics.GetForwardVector(planet.Period) * planet.distance + position + Input.cameraOffset, null, Color.White, 0, new Vector2(this.sprite.Size.Width / 2, this.sprite.Size.Height / 2), Vector2.One, SpriteEffects.None, 0);
                 }
+                if(planet is IDrawable draw)
+                {
+                    draw.Draw(sprite);
+                }
+            }
+        }
+        public void Update()
+        {
+            foreach (Planet planet in planets)
+            {
+                if(planet is IUpdateable updateable)
+                {
+                    updateable.Update();
+                }
             }
         }
     }
