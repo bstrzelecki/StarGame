@@ -21,7 +21,6 @@ namespace StarGame
             p.physics.velocity = velocity;
             //p.Rotation = Input.GetRads(rotation) + (float)Math.PI / 2;
             Projectiles.Add(p);
-            Debug.WriteLine(p.Position);
             Cooldown = 0;
         }
     }

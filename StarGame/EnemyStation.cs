@@ -12,7 +12,7 @@ namespace StarGame
         private readonly ITargetable target = MainScene.player;
         public EnemyStation(Sprite sprite, float mass, float distance) : base(sprite, mass, distance)
         {
-            weapon = new RocketLauncher(new HomingMissle(target, new Sprite("plasma")));
+            weapon = new RocketLauncher(new HomingMissle(null, new Sprite("plasma")));
         }
 
         private Vector2 _position = Vector2.Zero;
@@ -29,7 +29,7 @@ namespace StarGame
         {
             if (weapon != null)
             {
-                weapon.SpawnProjectile(Position - Input.cameraOffset, Input.GetDegree((float)Math.Sin((target.GetPosition() - Position - Input.cameraOffset).Length())), Vector2.Zero);
+                weapon.SpawnProjectile(Position - Input.cameraOffset, Input.GetDegree((float)Math.Sin((target.GetPosition() - Position - Input.cameraOffset).Length())), new Vector2(1,1));
             }
         }
 
