@@ -9,7 +9,7 @@ namespace StarGame
         public Rectangle Size { get; protected set; }
         public Sprite(Texture2D sprite)
         {
-            Texture = sprite;
+            Texture = sprite ?? Game1.textures["WhitePixel"];
             Size = sprite.Bounds;
         }
         public Sprite(string sprite)
@@ -32,7 +32,11 @@ namespace StarGame
         }
         public static implicit operator Texture2D(Sprite sprite)
         {
-            return sprite.Texture;
+            if(sprite == null)
+            {
+                return Game1.textures["WhitePixel"];
+            }
+            return sprite.Texture ;
         }
     }
 }

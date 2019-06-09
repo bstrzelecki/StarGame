@@ -15,11 +15,11 @@ namespace StarGame
         }
 
         private Vector2 initialVelocity = Vector2.Zero;
-        private int decay = 500;
+        private int decay = 250;
         private void Time_OnTick()
         {
             if (IsDisposed) return;
-            if (decay == 0)
+            if (decay < 0)
             {
                 Dispose();
                 return;
@@ -49,7 +49,7 @@ namespace StarGame
         }
         public override void Draw(SpriteBatch sprite)
         {
-            if (!IsDisposed)
+            if (!IsDisposed && Sprite != null)
             {
                 sprite.Draw(Sprite, Position + Input.cameraOffset, null, Color.White, Rotation - Input.GetRads(90), new Vector2(Sprite.Size.Width / 2, Sprite.Size.Height / 2), 1, SpriteEffects.None, 0);
             }
