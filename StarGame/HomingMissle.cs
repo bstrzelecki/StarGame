@@ -12,10 +12,11 @@ namespace StarGame
             this.target = target;
             Time.OnTick += Time_OnTick;
             Rotation += Input.GetRads(180);
+            decay = 250;
         }
 
         private Vector2 initialVelocity = Vector2.Zero;
-        private int decay = 250;
+        private int decay;
         private void Time_OnTick()
         {
             if (IsDisposed) return;
