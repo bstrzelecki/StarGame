@@ -11,13 +11,15 @@ namespace StarGame
         public float Rotation { get; set; }
         public float Decay { get; set; } = 10;
         public Physics physics = new Physics();
+        private Sprite initialSprite;
         public Projectile(Sprite sprite)
         {
             Sprite = sprite;
+            initialSprite = sprite;
         }
         public object Clone()
         {
-            return new Projectile(Sprite);
+            return new Projectile(initialSprite);
         }
 
         public virtual void Draw(SpriteBatch sprite)
