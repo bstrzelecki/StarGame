@@ -20,6 +20,9 @@ namespace StarGame
         public int armor = 10;
         public Weapon rmb;
         private bool useGravity = true;
+        /// <summary>
+        /// Defoult player class thats handle satandard behaviour
+        /// </summary>
         public Player()
         {
             sprite = new Sprite(Game1.textures["player"]);
