@@ -55,21 +55,11 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <StartupObject>StarGame.Program</StartupObject>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>090E91315AF125C233999153A398ED428122C065</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>StarGame_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Compile Include="FloatingScrap.cs" />
     <Compile Include="HomingMissle.cs" />
@@ -177,7 +167,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="StarGame_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\ContentBuilder.exe" />
